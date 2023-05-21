@@ -3,12 +3,40 @@ pragma solidity >=0.8.0;
 
 import {System} from "@latticexyz/world/src/System.sol";
 import {console} from "forge-std/console.sol";
-import {MapConfig, Movable, Obstruction, Player, Position, Resource, Collectible} from "../codegen/Tables.sol";
+import {
+    MapConfig,
+    Movable,
+    Obstruction,
+    Player,
+    Position,
+    Resource,
+    Collectible,
+    CollectionAttempt,
+    Inventory
+} from "../codegen/Tables.sol";
 import {ResourceType, TerrainType} from "../codegen/Types.sol";
 import {addressToEntityKey} from "../addressToEntityKey.sol";
 import {positionToEntityKey} from "../positionToEntityKey.sol";
 
 contract MapSystem is System {
+    function setTerrain(uint32 x, uint32 y, TerrainType terrainType) public {
+        (uint32 width, uint32 height, bytes memory terrain) = MapConfig.get();
+        x = (x + width) % width;
+        y = (y + height) % height;
+
+        terrain[(y * width) + x] = bytes1(uint8(terrainType));
+        MapConfig.set(width, height, terrain);
+    }
+
+    function removeTerrain(uint32 x, uint32 y) public {
+        (uint32 width, uint32 height, bytes memory terrain) = MapConfig.get();
+        x = (x + width) % width;
+        y = (y + height) % height;
+
+        terrain[(y * width) + x] = bytes1(uint8(TerrainType.None));
+        MapConfig.set(width, height, terrain);
+    }
+
     function spawn(uint32 x, uint32 y) public {
         bytes32 player = addressToEntityKey(address(_msgSender()));
         require(!Player.get(player), "already spawned");
@@ -20,7 +48,6 @@ contract MapSystem is System {
 
         bytes32 position = positionToEntityKey(x, y);
         require(!Obstruction.get(position), "this space is obstructed");
-
         Player.set(player, true);
         Position.set(player, x, y);
         Movable.set(player, true);
@@ -41,6 +68,23 @@ contract MapSystem is System {
         x = (x + width) % width;
         y = (y + height) % height;
 
+        // Check if its a resource we can collect
+        if (uint256(Resource.get(position)) > 0) {
+            if (Resource.get(position) == ResourceType.Wood) {
+                Inventory.setWood(player, Inventory.getWood(player) + 1);
+            }
+            if (Resource.get(position) == ResourceType.Stone) {
+                Inventory.setStone(player, Inventory.getStone(player) + 1);
+            }
+            if (Resource.get(position) == ResourceType.Water) {
+                Inventory.setWater(player, Inventory.getWater(player) + 1);
+            }
+
+            CollectionAttempt.emitEphemeral(player, Resource.get(position));
+
+            Resource.deleteRecord(position);
+            removeTerrain(x, y);
+        }
         Position.set(player, x, y);
     }
 
@@ -69,7 +113,18 @@ contract MapSystem is System {
         bytes32 entity = positionToEntityKey(x, y);
         Obstruction.deleteRecord(entity);
 
-        terrain[(y * width) + x] = bytes1(uint8(TerrainType.None));
-        MapConfig.set(width, height, terrain);
+        // When you mine an obstruction, it turns into a resource
+        // We set that position to a specific resource type
+        ResourceType resource = ResourceType.Wood;
+        setTerrain(x, y, TerrainType.Wood);
+        if (terrain[(y * width) + x] == bytes1(uint8(TerrainType.Rock))) {
+            resource = ResourceType.Stone;
+            setTerrain(x, y, TerrainType.Stone);
+        } else if (terrain[(y * width) + x] == bytes1(uint8(TerrainType.Sea))) {
+            resource = ResourceType.Water;
+            setTerrain(x, y, TerrainType.Water);
+        }
+
+        Resource.set(entity, resource);
     }
 }

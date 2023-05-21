@@ -158,5 +158,22 @@ export function defineContractComponents(world: World) {
         }
       );
     })(),
+    Inventory: (() => {
+      const tableId = new TableId("", "Inventory");
+      return defineComponent(
+        world,
+        {
+          wood: RecsType.Number,
+          stone: RecsType.Number,
+          water: RecsType.Number,
+        },
+        {
+          metadata: {
+            contractId: tableId.toHexString(),
+            tableId: tableId.toString(),
+          },
+        }
+      );
+    })(),
   };
 }

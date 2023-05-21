@@ -13,6 +13,9 @@ export enum ItemType {
 export enum TerrainType {
   Tree = 1,
   Rock,
+  Sea,
+  Wood,
+  Stone,
   Water,
 }
 
@@ -25,9 +28,18 @@ export const terrainTypes: Record<TerrainType, TerrainConfig> = {
     emoji: "🌳",
   },
   [TerrainType.Rock]: {
+    emoji: "🗿",
+  },
+  [TerrainType.Sea]: {
+    emoji: "🟦",
+  },
+  [TerrainType.Wood]: {
+    emoji: "🪵",
+  },
+  [TerrainType.Stone]: {
     emoji: "🪨",
   },
   [TerrainType.Water]: {
-    emoji: "🟦",
+    emoji: "🌊",
   },
 };

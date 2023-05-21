@@ -2,9 +2,9 @@ import { mudConfig } from "@latticexyz/world/register";
 
 export default mudConfig({
   enums: {
-    ResourceType: ["Wood", "Stone", "Water"],
+    ResourceType: ["None", "Wood", "Stone", "Water"],
     ItemType: ["Axe", "Pickaxe", "Bucket"],
-    TerrainType: ["None", "Tree", "Rock", "Water"],
+    TerrainType: ["None", "Tree", "Rock", "Sea", "Wood", "Stone", "Water"],
   },
   tables: {
     Resource: "ResourceType",
@@ -40,5 +40,12 @@ export default mudConfig({
       },
     },
     Movable: "bool",
+    Inventory: {
+      schema: {
+        wood: "uint32",
+        stone: "uint32",
+        water: "uint32",
+      },
+    },
   },
 });

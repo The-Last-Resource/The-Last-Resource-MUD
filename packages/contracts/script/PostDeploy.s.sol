@@ -19,7 +19,7 @@ contract PostDeploy is Script {
         TerrainType O = TerrainType.None;
         TerrainType T = TerrainType.Tree;
         TerrainType B = TerrainType.Rock;
-        TerrainType W = TerrainType.Water;
+        TerrainType S = TerrainType.Sea;
 
         TerrainType[20][20] memory map = [
             [O, O, O, O, O, O, T, O, O, O, O, O, O, O, O, O, O, O, O, O],
@@ -30,13 +30,13 @@ contract PostDeploy is Script {
             [O, O, O, B, B, O, O, O, O, O, O, O, O, O, O, O, O, O, O, O],
             [O, T, O, O, O, B, B, O, O, O, O, T, O, O, O, O, O, B, O, O],
             [O, O, T, T, O, O, O, O, O, T, O, B, O, O, T, O, B, O, O, O],
-            [O, O, T, O, O, O, O, T, T, T, O, B, B, O, W, W, W, O, O, O],
-            [O, O, O, O, O, O, O, T, T, T, O, B, T, O, W, W, W, O, O, O],
-            [O, B, O, O, O, B, O, O, T, T, O, B, O, O, W, W, O, O, O, O],
-            [O, O, W, W, O, O, T, O, T, T, O, O, B, T, T, T, O, O, O, O],
-            [O, O, W, W, W, O, O, O, T, O, O, O, B, O, T, O, O, O, O, O],
-            [O, O, O, W, W, O, O, O, O, O, O, O, O, B, O, T, O, O, O, O],
-            [O, O, O, W, W, O, O, O, O, O, O, O, O, O, O, O, O, O, O, O],
+            [O, O, T, O, O, O, O, T, T, T, O, B, B, O, S, S, S, O, O, O],
+            [O, O, O, O, O, O, O, T, T, T, O, B, T, O, S, S, S, O, O, O],
+            [O, B, O, O, O, B, O, O, T, T, O, B, O, O, S, S, O, O, O, O],
+            [O, O, S, S, O, O, T, O, T, T, O, O, B, T, T, T, O, O, O, O],
+            [O, O, S, S, S, O, O, O, T, O, O, O, B, O, T, O, O, O, O, O],
+            [O, O, O, S, S, O, O, O, O, O, O, O, O, B, O, T, O, O, O, O],
+            [O, O, O, S, S, O, O, O, O, O, O, O, O, O, O, O, O, O, O, O],
             [O, O, O, O, O, O, O, O, O, O, B, B, O, O, T, O, O, O, O, O],
             [O, O, O, O, T, O, O, O, T, B, O, O, O, T, T, O, B, O, O, O],
             [O, O, O, T, O, T, T, T, O, O, O, O, O, T, O, O, O, O, O, O],
