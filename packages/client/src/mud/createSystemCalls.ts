@@ -12,7 +12,7 @@ export function createSystemCalls(
     Obstruction,
     Player,
     Position,
-    Collectible,
+    Mineable,
     CollectionAttempt,
   }: ClientComponents
 ) {
@@ -31,8 +31,8 @@ export function createSystemCalls(
     return runQuery([Has(Obstruction), HasValue(Position, { x, y })]).size > 0;
   };
 
-  const isCollectible = (x: number, y: number) => {
-    return runQuery([Has(Collectible), HasValue(Position, { x, y })]).size > 0;
+  const isMineable = (x: number, y: number) => {
+    return runQuery([Has(Mineable), HasValue(Position, { x, y })]).size > 0;
   };
 
   const moveTo = async (inputX: number, inputY: number) => {
@@ -130,7 +130,7 @@ export function createSystemCalls(
       playerPosition.y + deltaY
     );
 
-    if (!isCollectible(x, y)) {
+    if (!isMineable(x, y)) {
       console.warn("cannot mine non resource");
       return;
     }
@@ -149,10 +149,40 @@ export function createSystemCalls(
     }
   };
 
+  const craftAxe = async () => {
+    if (!playerEntity) {
+      throw new Error("no player");
+    }
+
+    const tx = await worldSend("craftAxe", []);
+    await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
+  };
+
+  const craftPickaxe = async () => {
+    if (!playerEntity) {
+      throw new Error("no player");
+    }
+
+    const tx = await worldSend("craftPickaxe", []);
+    await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
+  };
+
+  const craftBucket = async () => {
+    if (!playerEntity) {
+      throw new Error("no player");
+    }
+
+    const tx = await worldSend("craftBucket", []);
+    await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
+  };
+
   return {
     moveTo,
     moveBy,
     spawn,
     mine,
+    craftAxe,
+    craftPickaxe,
+    craftBucket,
   };
 }

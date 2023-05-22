@@ -29,7 +29,7 @@ export default mudConfig({
       },
     },
     Obstruction: "bool",
-    Collectible: "bool",
+    Mineable: "bool", // If a user can mine this
     OwnedBy: "bytes32",
     Player: "bool",
     Position: {

@@ -15,4 +15,10 @@ interface IMapSystem {
   function move(uint32 x, uint32 y) external;
 
   function mine(uint32 x, uint32 y) external;
+
+  function craftAxe() external;
+
+  function craftPickaxe() external;
+
+  function craftBucket() external;
 }

@@ -4,7 +4,7 @@ pragma solidity >=0.8.0;
 import {Script} from "forge-std/Script.sol";
 import {console} from "forge-std/console.sol";
 import {IWorld} from "../src/codegen/world/IWorld.sol";
-import {MapConfig, Obstruction, Position, Collectible} from "../src/codegen/Tables.sol";
+import {MapConfig, Obstruction, Position, Mineable} from "../src/codegen/Tables.sol";
 import {TerrainType} from "../src/codegen/Types.sol";
 import {positionToEntityKey} from "../src/positionToEntityKey.sol";
 
@@ -58,7 +58,7 @@ contract PostDeploy is Script {
                 bytes32 entity = positionToEntityKey(x, y);
                 Position.set(world, entity, x, y);
                 Obstruction.set(world, entity, true);
-                Collectible.set(world, entity, true);
+                Mineable.set(world, entity, true);
             }
         }
 

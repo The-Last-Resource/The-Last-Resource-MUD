@@ -82,8 +82,8 @@ export function defineContractComponents(world: World) {
         }
       );
     })(),
-    Collectible: (() => {
-      const tableId = new TableId("", "Collectible");
+    Mineable: (() => {
+      const tableId = new TableId("", "Mineable");
       return defineComponent(
         world,
         {
