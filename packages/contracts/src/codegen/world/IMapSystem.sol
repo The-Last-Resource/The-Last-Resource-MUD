@@ -13,18 +13,4 @@ interface IMapSystem {
   function spawn(uint32 x, uint32 y) external;
 
   function move(uint32 x, uint32 y) external;
-
-  function mine(uint32 x, uint32 y) external;
-
-  function craftAxe() external;
-
-  function craftPickaxe() external;
-
-  function craftBucket() external;
-
-  function getAxe() external view returns (uint256);
-
-  function getPickaxe() external view returns (uint256);
-
-  function getBucket() external view returns (uint256);
 }

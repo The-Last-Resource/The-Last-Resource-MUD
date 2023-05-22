@@ -2,7 +2,6 @@ import { Has, HasValue, getComponentValue, runQuery } from "@latticexyz/recs";
 import { uuid, awaitStreamValue } from "@latticexyz/utils";
 import { ClientComponents } from "./createClientComponents";
 import { SetupNetworkResult } from "./setupNetwork";
-import { useEntityQuery } from "@latticexyz/react";
 
 export type SystemCalls = ReturnType<typeof createSystemCalls>;
 
