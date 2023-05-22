@@ -78,12 +78,17 @@ export default mudConfig({
     {
       name: "KeysWithValueModule",
       root: true,
-      args: [resolveTableId("OwnedBy"), resolveTableId("Item")],
+      args: [resolveTableId("OwnedBy")],
+    },
+    {
+      name: "KeysWithValueModule",
+      root: true,
+      args: [resolveTableId("Item")],
     },
     {
       name: "KeysInTableModule",
       root: true,
-      args: [resolveTableId("OwnedBy"), resolveTableId("Item")],
+      args: [resolveTableId("Item")],
     },
   ],
 });

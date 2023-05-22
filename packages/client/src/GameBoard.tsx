@@ -17,23 +17,6 @@ export const GameBoard = () => {
     systemCalls: { spawn },
   } = useMUD();
 
-  // const val = useEntityQuery([Has(Item), Has(OwnedBy)])
-  //   .filter((entity) => {
-  //     const ownerData = getComponentValueStrict(OwnedBy, entity);
-  //     const address = defaultAbiCoder.decode(["address"], ownerData.value)[0];
-
-  //     return (
-  //       ethers.utils.getAddress(address) ===
-  //       ethers.utils.getAddress(playerEntity as any)
-  //     );
-  //   })
-  //   .map((itemKey) => {
-  //     const itemData = getComponentValueStrict(Item, itemKey).value;
-
-  //     return Object.values(ItemType)[itemData];
-  //   });
-
-  // const val = useEntityQuery([Has(Item)]);
   const val = useEntityQuery([
     HasValue(Item, {
       value: ItemType.Pickaxe,

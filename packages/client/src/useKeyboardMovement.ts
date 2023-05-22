@@ -9,7 +9,9 @@ export const useKeyboardMovement = () => {
       craftAxe,
       craftPickaxe,
       craftBucket,
-      getItems,
+      getAxe,
+      getPickaxe,
+      getBucket,
     },
   } = useMUD();
 
@@ -49,7 +51,13 @@ export const useKeyboardMovement = () => {
         craftBucket();
       }
       if (e.key === "4") {
-        console.log(getItems());
+        getAxe();
+      }
+      if (e.key === "5") {
+        getPickaxe();
+      }
+      if (e.key === "6") {
+        getBucket();
       }
     };
 

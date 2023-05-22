@@ -23,7 +23,6 @@ import {addressToEntityKey} from "../addressToEntityKey.sol";
 import {positionToEntityKey} from "../positionToEntityKey.sol";
 import {getKeysWithValue} from "@latticexyz/world/src/modules/keyswithvalue/getKeysWithValue.sol";
 import {getKeysInTable} from "@latticexyz/world/src/modules/keysintable/getKeysInTable.sol";
-import {IWorld} from "../codegen/world/IWorld.sol";
 import {query, QueryFragment, QueryType} from "@latticexyz/world/src/modules/keysintable/query.sol";
 
 contract MapSystem is System {
@@ -223,20 +222,36 @@ contract MapSystem is System {
     //     return keyTuples;
     // }
 
-    function getItems() public view returns (bytes32[][] memory) {
+    function getAxe() public view returns (uint256) {
         bytes32 player = addressToEntityKey(_msgSender());
-        // bytes32[] memory items =
-        QueryFragment[] memory fragments = new QueryFragment[](3);
+        QueryFragment[] memory fragments = new QueryFragment[](2);
 
-        // Specify the more restrictive filter first for performance reasons
-        // fragments[0] = QueryFragment(QueryType.Has, ItemTableId, new bytes(0));
-        fragments[0] = QueryFragment(QueryType.HasValue, OwnedByTableId, OwnedBy.encode(player));
-
-        fragments[1] = QueryFragment(QueryType.HasValue, ItemTableId, Item.encode(ItemType.Pickaxe));
-
-        // // The value argument is ignored in Has query fragments
+        fragments[0] = QueryFragment(QueryType.HasValue, ItemTableId, Item.encode(ItemType.Axe));
+        fragments[1] = QueryFragment(QueryType.HasValue, OwnedByTableId, OwnedBy.encode(player));
 
         bytes32[][] memory keyTuples = query(fragments);
-        return keyTuples;
+        return keyTuples.length;
+    }
+
+    function getPickaxe() public view returns (uint256) {
+        bytes32 player = addressToEntityKey(_msgSender());
+        QueryFragment[] memory fragments = new QueryFragment[](2);
+
+        fragments[0] = QueryFragment(QueryType.HasValue, ItemTableId, Item.encode(ItemType.Pickaxe));
+        fragments[1] = QueryFragment(QueryType.HasValue, OwnedByTableId, OwnedBy.encode(player));
+
+        bytes32[][] memory keyTuples = query(fragments);
+        return keyTuples.length;
+    }
+
+    function getBucket() public view returns (uint256) {
+        bytes32 player = addressToEntityKey(_msgSender());
+        QueryFragment[] memory fragments = new QueryFragment[](2);
+
+        fragments[0] = QueryFragment(QueryType.HasValue, ItemTableId, Item.encode(ItemType.Bucket));
+        fragments[1] = QueryFragment(QueryType.HasValue, OwnedByTableId, OwnedBy.encode(player));
+
+        bytes32[][] memory keyTuples = query(fragments);
+        return keyTuples.length;
     }
 }

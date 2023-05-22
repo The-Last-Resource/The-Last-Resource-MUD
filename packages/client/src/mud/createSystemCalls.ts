@@ -170,8 +170,18 @@ export function createSystemCalls(
     await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
   };
 
-  const getItems = async () => {
-    const tx = await worldSend("getItems", []);
+  const getAxe = async () => {
+    const tx = await worldSend("getAxe", []);
+    await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
+  };
+
+  const getPickaxe = async () => {
+    const tx = await worldSend("getPickaxe", []);
+    await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
+  };
+
+  const getBucket = async () => {
+    const tx = await worldSend("getBucket", []);
     await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
   };
 
@@ -183,6 +193,8 @@ export function createSystemCalls(
     craftAxe,
     craftPickaxe,
     craftBucket,
-    getItems,
+    getAxe,
+    getPickaxe,
+    getBucket,
   };
 }
