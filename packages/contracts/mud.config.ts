@@ -8,14 +8,13 @@ export default mudConfig({
     MonsterType: ["None", "Deer", "Gorilla"],
   },
   tables: {
-    // Monster: {
-    //   schema: {
-    //     type: "MonsterType",
-    //     health: "uint32",
-    //     damage: "uint32",
-    //   },
-    // },
-    Monster: "MonsterType",
+    Monster: {
+      schema: {
+        monster: "MonsterType",
+        health: "uint32",
+        damage: "uint32",
+      },
+    },
     Encounter: {
       dataStruct: false,
       keySchema: {
@@ -79,7 +78,12 @@ export default mudConfig({
     {
       name: "KeysWithValueModule",
       root: true,
-      args: [resolveTableId("OwnedBy")],
+      args: [resolveTableId("OwnedBy"), resolveTableId("Item")],
+    },
+    {
+      name: "KeysInTableModule",
+      root: true,
+      args: [resolveTableId("OwnedBy"), resolveTableId("Item")],
     },
   ],
 });

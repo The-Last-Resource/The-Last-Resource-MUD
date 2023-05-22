@@ -23,11 +23,19 @@ import { MonsterType } from "./../Types.sol";
 bytes32 constant _tableId = bytes32(abi.encodePacked(bytes16(""), bytes16("Monster")));
 bytes32 constant MonsterTableId = _tableId;
 
+struct MonsterData {
+  MonsterType monster;
+  uint32 health;
+  uint32 damage;
+}
+
 library Monster {
   /** Get the table's schema */
   function getSchema() internal pure returns (Schema) {
-    SchemaType[] memory _schema = new SchemaType[](1);
+    SchemaType[] memory _schema = new SchemaType[](3);
     _schema[0] = SchemaType.UINT8;
+    _schema[1] = SchemaType.UINT32;
+    _schema[2] = SchemaType.UINT32;
 
     return SchemaLib.encode(_schema);
   }
@@ -41,8 +49,10 @@ library Monster {
 
   /** Get the table's metadata */
   function getMetadata() internal pure returns (string memory, string[] memory) {
-    string[] memory _fieldNames = new string[](1);
-    _fieldNames[0] = "value";
+    string[] memory _fieldNames = new string[](3);
+    _fieldNames[0] = "monster";
+    _fieldNames[1] = "health";
+    _fieldNames[2] = "damage";
     return ("Monster", _fieldNames);
   }
 
@@ -68,8 +78,8 @@ library Monster {
     _store.setMetadata(_tableId, _tableName, _fieldNames);
   }
 
-  /** Get value */
-  function get(bytes32 key) internal view returns (MonsterType value) {
+  /** Get monster */
+  function getMonster(bytes32 key) internal view returns (MonsterType monster) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
@@ -77,8 +87,8 @@ library Monster {
     return MonsterType(uint8(Bytes.slice1(_blob, 0)));
   }
 
-  /** Get value (using the specified store) */
-  function get(IStore _store, bytes32 key) internal view returns (MonsterType value) {
+  /** Get monster (using the specified store) */
+  function getMonster(IStore _store, bytes32 key) internal view returns (MonsterType monster) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
@@ -86,25 +96,150 @@ library Monster {
     return MonsterType(uint8(Bytes.slice1(_blob, 0)));
   }
 
-  /** Set value */
-  function set(bytes32 key, MonsterType value) internal {
+  /** Set monster */
+  function setMonster(bytes32 key, MonsterType monster) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    StoreSwitch.setField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(value)));
+    StoreSwitch.setField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(monster)));
   }
 
-  /** Set value (using the specified store) */
-  function set(IStore _store, bytes32 key, MonsterType value) internal {
+  /** Set monster (using the specified store) */
+  function setMonster(IStore _store, bytes32 key, MonsterType monster) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    _store.setField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(value)));
+    _store.setField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(monster)));
+  }
+
+  /** Get health */
+  function getHealth(bytes32 key) internal view returns (uint32 health) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    bytes memory _blob = StoreSwitch.getField(_tableId, _keyTuple, 1);
+    return (uint32(Bytes.slice4(_blob, 0)));
+  }
+
+  /** Get health (using the specified store) */
+  function getHealth(IStore _store, bytes32 key) internal view returns (uint32 health) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    bytes memory _blob = _store.getField(_tableId, _keyTuple, 1);
+    return (uint32(Bytes.slice4(_blob, 0)));
+  }
+
+  /** Set health */
+  function setHealth(bytes32 key, uint32 health) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    StoreSwitch.setField(_tableId, _keyTuple, 1, abi.encodePacked((health)));
+  }
+
+  /** Set health (using the specified store) */
+  function setHealth(IStore _store, bytes32 key, uint32 health) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    _store.setField(_tableId, _keyTuple, 1, abi.encodePacked((health)));
+  }
+
+  /** Get damage */
+  function getDamage(bytes32 key) internal view returns (uint32 damage) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    bytes memory _blob = StoreSwitch.getField(_tableId, _keyTuple, 2);
+    return (uint32(Bytes.slice4(_blob, 0)));
+  }
+
+  /** Get damage (using the specified store) */
+  function getDamage(IStore _store, bytes32 key) internal view returns (uint32 damage) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    bytes memory _blob = _store.getField(_tableId, _keyTuple, 2);
+    return (uint32(Bytes.slice4(_blob, 0)));
+  }
+
+  /** Set damage */
+  function setDamage(bytes32 key, uint32 damage) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    StoreSwitch.setField(_tableId, _keyTuple, 2, abi.encodePacked((damage)));
+  }
+
+  /** Set damage (using the specified store) */
+  function setDamage(IStore _store, bytes32 key, uint32 damage) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    _store.setField(_tableId, _keyTuple, 2, abi.encodePacked((damage)));
+  }
+
+  /** Get the full data */
+  function get(bytes32 key) internal view returns (MonsterData memory _table) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    bytes memory _blob = StoreSwitch.getRecord(_tableId, _keyTuple, getSchema());
+    return decode(_blob);
+  }
+
+  /** Get the full data (using the specified store) */
+  function get(IStore _store, bytes32 key) internal view returns (MonsterData memory _table) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    bytes memory _blob = _store.getRecord(_tableId, _keyTuple, getSchema());
+    return decode(_blob);
+  }
+
+  /** Set the full data using individual values */
+  function set(bytes32 key, MonsterType monster, uint32 health, uint32 damage) internal {
+    bytes memory _data = encode(monster, health, damage);
+
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    StoreSwitch.setRecord(_tableId, _keyTuple, _data);
+  }
+
+  /** Set the full data using individual values (using the specified store) */
+  function set(IStore _store, bytes32 key, MonsterType monster, uint32 health, uint32 damage) internal {
+    bytes memory _data = encode(monster, health, damage);
+
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    _store.setRecord(_tableId, _keyTuple, _data);
+  }
+
+  /** Set the full data using the data struct */
+  function set(bytes32 key, MonsterData memory _table) internal {
+    set(key, _table.monster, _table.health, _table.damage);
+  }
+
+  /** Set the full data using the data struct (using the specified store) */
+  function set(IStore _store, bytes32 key, MonsterData memory _table) internal {
+    set(_store, key, _table.monster, _table.health, _table.damage);
+  }
+
+  /** Decode the tightly packed blob using this table's schema */
+  function decode(bytes memory _blob) internal pure returns (MonsterData memory _table) {
+    _table.monster = MonsterType(uint8(Bytes.slice1(_blob, 0)));
+
+    _table.health = (uint32(Bytes.slice4(_blob, 1)));
+
+    _table.damage = (uint32(Bytes.slice4(_blob, 5)));
   }
 
   /** Tightly pack full data using this table's schema */
-  function encode(MonsterType value) internal view returns (bytes memory) {
-    return abi.encodePacked(value);
+  function encode(MonsterType monster, uint32 health, uint32 damage) internal view returns (bytes memory) {
+    return abi.encodePacked(monster, health, damage);
   }
 
   /** Encode keys as a bytes32 array using this table's schema */

@@ -2,7 +2,7 @@
 pragma solidity >=0.8.0;
 
 import {System} from "@latticexyz/world/src/System.sol";
-import {console} from "forge-std/console.sol";
+// import {console} from "forge-std/console.sol";
 import {
     MapConfig,
     Movable,
@@ -14,6 +14,7 @@ import {
     CollectionAttempt,
     Inventory,
     Item,
+    ItemTableId,
     OwnedBy,
     OwnedByTableId
 } from "../codegen/Tables.sol";
@@ -21,7 +22,9 @@ import {ResourceType, TerrainType, ItemType} from "../codegen/Types.sol";
 import {addressToEntityKey} from "../addressToEntityKey.sol";
 import {positionToEntityKey} from "../positionToEntityKey.sol";
 import {getKeysWithValue} from "@latticexyz/world/src/modules/keyswithvalue/getKeysWithValue.sol";
+import {getKeysInTable} from "@latticexyz/world/src/modules/keysintable/getKeysInTable.sol";
 import {IWorld} from "../codegen/world/IWorld.sol";
+import {query, QueryFragment, QueryType} from "@latticexyz/world/src/modules/keysintable/query.sol";
 
 contract MapSystem is System {
     function setTerrain(uint32 x, uint32 y, TerrainType terrainType) public {
@@ -185,10 +188,55 @@ contract MapSystem is System {
         OwnedBy.set(item, player);
     }
 
-    function getItems() public view returns (bytes32[] memory) {
-        bytes32[] memory keysWithValue =
-            getKeysWithValue(OwnedByTableId, OwnedBy.encode(addressToEntityKey(_msgSender())));
+    // function getItems() public view returns (bytes32[] memory) {
+    //     bytes32[] memory ownedBy = getKeysWithValue(OwnedByTableId, OwnedBy.encode(addressToEntityKey(_msgSender())));
 
-        return keysWithValue;
+    //     for (uint i = 0; i < ownedBy.length; i++) {
+
+    //     }
+    //     return ownedBy;
+    // }
+
+    // function getItems() public view returns (bytes32[][] memory) {
+    //     bytes32 player = addressToEntityKey(_msgSender());
+    //     QueryFragment[] memory fragments = new QueryFragment[](2);
+
+    //     fragments[1] = QueryFragment(QueryType.Has, ItemTableId, new bytes(0));
+    //     fragments[0] = QueryFragment(QueryType.HasValue, OwnedByTableId, OwnedBy.encode(player));
+
+    //     bytes32[][] memory keyTuples = query(fragments);
+    //     return keyTuples;
+    // }
+
+    // function hasPickaxe() public view returns (bytes32[][] memory) {
+    //     bytes32 player = addressToEntityKey(_msgSender());
+    //     // bytes32[] memory items =
+    //     QueryFragment[] memory fragments = new QueryFragment[](2);
+
+    //     // Specify the more restrictive filter first for performance reasons
+    //     fragments[1] = QueryFragment(QueryType.HasValue, OwnedByTableId, OwnedBy.encode(player));
+
+    //     // The value argument is ignored in Has query fragments
+    //     fragments[0] = QueryFragment(QueryType.Has, ItemTableId, new bytes(0));
+
+    //     bytes32[][] memory keyTuples = query(fragments);
+    //     return keyTuples;
+    // }
+
+    function getItems() public view returns (bytes32[][] memory) {
+        bytes32 player = addressToEntityKey(_msgSender());
+        // bytes32[] memory items =
+        QueryFragment[] memory fragments = new QueryFragment[](3);
+
+        // Specify the more restrictive filter first for performance reasons
+        // fragments[0] = QueryFragment(QueryType.Has, ItemTableId, new bytes(0));
+        fragments[0] = QueryFragment(QueryType.HasValue, OwnedByTableId, OwnedBy.encode(player));
+
+        fragments[1] = QueryFragment(QueryType.HasValue, ItemTableId, Item.encode(ItemType.Pickaxe));
+
+        // // The value argument is ignored in Has query fragments
+
+        bytes32[][] memory keyTuples = query(fragments);
+        return keyTuples;
     }
 }

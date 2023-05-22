@@ -10,7 +10,9 @@ export function defineContractComponents(world: World) {
       return defineComponent(
         world,
         {
-          value: RecsType.Number,
+          monster: RecsType.Number,
+          health: RecsType.Number,
+          damage: RecsType.Number,
         },
         {
           metadata: {

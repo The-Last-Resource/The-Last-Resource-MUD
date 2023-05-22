@@ -17,23 +17,33 @@ export const GameBoard = () => {
     systemCalls: { spawn },
   } = useMUD();
 
-  const val = useEntityQuery([Has(Item), Has(OwnedBy)])
-    .filter((entity) => {
-      const ownerData = getComponentValueStrict(OwnedBy, entity);
-      const address = defaultAbiCoder.decode(["address"], ownerData.value)[0];
+  // const val = useEntityQuery([Has(Item), Has(OwnedBy)])
+  //   .filter((entity) => {
+  //     const ownerData = getComponentValueStrict(OwnedBy, entity);
+  //     const address = defaultAbiCoder.decode(["address"], ownerData.value)[0];
 
-      return (
-        ethers.utils.getAddress(address) ===
-        ethers.utils.getAddress(playerEntity as any)
-      );
-    })
-    .map((itemKey) => {
-      const itemData = getComponentValueStrict(Item, itemKey).value;
+  //     return (
+  //       ethers.utils.getAddress(address) ===
+  //       ethers.utils.getAddress(playerEntity as any)
+  //     );
+  //   })
+  //   .map((itemKey) => {
+  //     const itemData = getComponentValueStrict(Item, itemKey).value;
 
-      return Object.values(ItemType)[itemData];
-    });
+  //     return Object.values(ItemType)[itemData];
+  //   });
 
-  console.log(val);
+  // const val = useEntityQuery([Has(Item)]);
+  const val = useEntityQuery([
+    HasValue(Item, {
+      value: ItemType.Pickaxe,
+    }),
+    HasValue(OwnedBy, {
+      value: ethers.utils.hexZeroPad(playerEntity as any, 32) as any,
+    }),
+  ]);
+
+  console.log({ val });
 
   const canSpawn = useComponentValue(Player, playerEntity)?.value !== true;
 
