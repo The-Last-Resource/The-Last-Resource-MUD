@@ -7,7 +7,15 @@ import {
 } from "@latticexyz/phaserx";
 import worldTileset from "../../../public/assets/tilesets/world.png";
 import { TileAnimations, Tileset } from "../../artTypes/world";
-import { Sprites, Assets, Maps, Scenes, TILE_HEIGHT, TILE_WIDTH, Animations } from "./constants";
+import {
+  Sprites,
+  Assets,
+  Maps,
+  Scenes,
+  TILE_HEIGHT,
+  TILE_WIDTH,
+  Animations,
+} from "./constants";
 
 const ANIMATION_INTERVAL = 200;
 
@@ -88,4 +96,7 @@ export const phaserConfig = {
     minZoom: 1,
   }),
   cullingChunkSize: TILE_HEIGHT * 16,
+  physics: {
+    default: "arcade",
+  },
 };

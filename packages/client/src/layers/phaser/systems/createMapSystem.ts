@@ -1,5 +1,5 @@
 import { Tileset } from "../../../artTypes/world";
-import { PhaserLayer } from "../createPhaserLayer";
+import { type PhaserLayer } from "../createPhaserLayer";
 import { createNoise2D } from "simplex-noise";
 
 export function createMapSystem(layer: PhaserLayer) {

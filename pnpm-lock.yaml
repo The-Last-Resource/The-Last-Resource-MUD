@@ -27,6 +27,10 @@ importers:
         version: 4.9.5
 
   packages/art:
+    dependencies:
+      chalk:
+        specifier: ^5.2.0
+        version: 5.2.0
     devDependencies:
       '@mapeditor/tiled-api':
         specifier: ^1.8.2
