@@ -212,8 +212,8 @@ export function defineContractComponents(world: World) {
         {
           health: RecsType.Number,
           damage: RecsType.Number,
-          thirst: RecsType.Number,
-          hunger: RecsType.Number,
+          thirst: RecsType.BigInt,
+          hunger: RecsType.BigInt,
         },
         {
           metadata: {

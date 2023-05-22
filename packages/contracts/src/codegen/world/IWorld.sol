@@ -9,11 +9,12 @@ import { ICraftSystem } from "./ICraftSystem.sol";
 import { IInventorySystem } from "./IInventorySystem.sol";
 import { IMapSystem } from "./IMapSystem.sol";
 import { IMineSystem } from "./IMineSystem.sol";
+import { IStatsSystem } from "./IStatsSystem.sol";
 
 /**
  * The IWorld interface includes all systems dynamically added to the World
  * during the deploy process.
  */
-interface IWorld is IBaseWorld, ICraftSystem, IInventorySystem, IMapSystem, IMineSystem {
+interface IWorld is IBaseWorld, ICraftSystem, IInventorySystem, IMapSystem, IMineSystem, IStatsSystem {
 
 }

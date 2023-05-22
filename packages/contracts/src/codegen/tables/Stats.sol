@@ -23,8 +23,8 @@ bytes32 constant StatsTableId = _tableId;
 struct StatsData {
   uint32 health;
   uint32 damage;
-  uint32 thirst;
-  uint32 hunger;
+  uint256 thirst;
+  uint256 hunger;
 }
 
 library Stats {
@@ -33,8 +33,8 @@ library Stats {
     SchemaType[] memory _schema = new SchemaType[](4);
     _schema[0] = SchemaType.UINT32;
     _schema[1] = SchemaType.UINT32;
-    _schema[2] = SchemaType.UINT32;
-    _schema[3] = SchemaType.UINT32;
+    _schema[2] = SchemaType.UINT256;
+    _schema[3] = SchemaType.UINT256;
 
     return SchemaLib.encode(_schema);
   }
@@ -147,25 +147,25 @@ library Stats {
   }
 
   /** Get thirst */
-  function getThirst(bytes32 key) internal view returns (uint32 thirst) {
+  function getThirst(bytes32 key) internal view returns (uint256 thirst) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
     bytes memory _blob = StoreSwitch.getField(_tableId, _keyTuple, 2);
-    return (uint32(Bytes.slice4(_blob, 0)));
+    return (uint256(Bytes.slice32(_blob, 0)));
   }
 
   /** Get thirst (using the specified store) */
-  function getThirst(IStore _store, bytes32 key) internal view returns (uint32 thirst) {
+  function getThirst(IStore _store, bytes32 key) internal view returns (uint256 thirst) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
     bytes memory _blob = _store.getField(_tableId, _keyTuple, 2);
-    return (uint32(Bytes.slice4(_blob, 0)));
+    return (uint256(Bytes.slice32(_blob, 0)));
   }
 
   /** Set thirst */
-  function setThirst(bytes32 key, uint32 thirst) internal {
+  function setThirst(bytes32 key, uint256 thirst) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
@@ -173,7 +173,7 @@ library Stats {
   }
 
   /** Set thirst (using the specified store) */
-  function setThirst(IStore _store, bytes32 key, uint32 thirst) internal {
+  function setThirst(IStore _store, bytes32 key, uint256 thirst) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
@@ -181,25 +181,25 @@ library Stats {
   }
 
   /** Get hunger */
-  function getHunger(bytes32 key) internal view returns (uint32 hunger) {
+  function getHunger(bytes32 key) internal view returns (uint256 hunger) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
     bytes memory _blob = StoreSwitch.getField(_tableId, _keyTuple, 3);
-    return (uint32(Bytes.slice4(_blob, 0)));
+    return (uint256(Bytes.slice32(_blob, 0)));
   }
 
   /** Get hunger (using the specified store) */
-  function getHunger(IStore _store, bytes32 key) internal view returns (uint32 hunger) {
+  function getHunger(IStore _store, bytes32 key) internal view returns (uint256 hunger) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
     bytes memory _blob = _store.getField(_tableId, _keyTuple, 3);
-    return (uint32(Bytes.slice4(_blob, 0)));
+    return (uint256(Bytes.slice32(_blob, 0)));
   }
 
   /** Set hunger */
-  function setHunger(bytes32 key, uint32 hunger) internal {
+  function setHunger(bytes32 key, uint256 hunger) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
@@ -207,7 +207,7 @@ library Stats {
   }
 
   /** Set hunger (using the specified store) */
-  function setHunger(IStore _store, bytes32 key, uint32 hunger) internal {
+  function setHunger(IStore _store, bytes32 key, uint256 hunger) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
@@ -233,7 +233,7 @@ library Stats {
   }
 
   /** Set the full data using individual values */
-  function set(bytes32 key, uint32 health, uint32 damage, uint32 thirst, uint32 hunger) internal {
+  function set(bytes32 key, uint32 health, uint32 damage, uint256 thirst, uint256 hunger) internal {
     bytes memory _data = encode(health, damage, thirst, hunger);
 
     bytes32[] memory _keyTuple = new bytes32[](1);
@@ -243,7 +243,7 @@ library Stats {
   }
 
   /** Set the full data using individual values (using the specified store) */
-  function set(IStore _store, bytes32 key, uint32 health, uint32 damage, uint32 thirst, uint32 hunger) internal {
+  function set(IStore _store, bytes32 key, uint32 health, uint32 damage, uint256 thirst, uint256 hunger) internal {
     bytes memory _data = encode(health, damage, thirst, hunger);
 
     bytes32[] memory _keyTuple = new bytes32[](1);
@@ -268,13 +268,13 @@ library Stats {
 
     _table.damage = (uint32(Bytes.slice4(_blob, 4)));
 
-    _table.thirst = (uint32(Bytes.slice4(_blob, 8)));
+    _table.thirst = (uint256(Bytes.slice32(_blob, 8)));
 
-    _table.hunger = (uint32(Bytes.slice4(_blob, 12)));
+    _table.hunger = (uint256(Bytes.slice32(_blob, 40)));
   }
 
   /** Tightly pack full data using this table's schema */
-  function encode(uint32 health, uint32 damage, uint32 thirst, uint32 hunger) internal view returns (bytes memory) {
+  function encode(uint32 health, uint32 damage, uint256 thirst, uint256 hunger) internal view returns (bytes memory) {
     return abi.encodePacked(health, damage, thirst, hunger);
   }
 

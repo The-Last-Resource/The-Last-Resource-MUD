@@ -13,6 +13,7 @@ import {
     Mineable,
     CollectionAttempt,
     Inventory,
+    Stats,
     Item,
     ItemTableId,
     OwnedBy,
@@ -56,6 +57,10 @@ contract MapSystem is System {
 
         bytes32 position = positionToEntityKey(x, y);
         require(!Obstruction.get(position), "this space is obstructed");
+
+        // Before spawning the player, we will initialize their stats
+        Stats.set(player, 5, 1, block.number + 30, block.number + 30);
+
         Player.set(player, true);
         Position.set(player, x, y);
         Movable.set(player, true);

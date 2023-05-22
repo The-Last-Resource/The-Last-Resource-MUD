@@ -62,8 +62,8 @@ export default mudConfig({
       schema: {
         health: "uint32",
         damage: "uint32",
-        thirst: "uint32",
-        hunger: "uint32",
+        thirst: "uint256",
+        hunger: "uint256",
       },
     },
     Inventory: {
