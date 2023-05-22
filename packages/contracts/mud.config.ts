@@ -4,8 +4,8 @@ export default mudConfig({
   enums: {
     ResourceType: ["None", "Wood", "Stone", "Water"],
     ItemType: ["Axe", "Pickaxe", "Bucket"],
-    TerrainType: ["None", "Tree", "Rock", "Sea", "Wood", "Stone", "Water"],
-    MonsterType: ["None", "Deer", "Gorilla"],
+    TerrainType: ["None", "Tree", "Rock", "Sea", "Wood", "Stone", "Water", "Grass"],
+    MonsterType: ["None", "Deer", "Chicken"],
   },
   tables: {
     Collected: {
@@ -26,6 +26,26 @@ export default mudConfig({
       },
       schema: {
         result: "ItemType",
+      },
+    },
+    Thirsty: {
+      ephemeral: true,
+      dataStruct: false,
+      keySchema: {
+        player: "bytes32",
+      },
+      schema: {
+        result: "bool",
+      },
+    },
+    Hungry: {
+      ephemeral: true,
+      dataStruct: false,
+      keySchema: {
+        player: "bytes32",
+      },
+      schema: {
+        result: "bool",
       },
     },
     Monster: {
@@ -56,7 +76,6 @@ export default mudConfig({
         terrain: "bytes",
       },
     },
-
     Obstruction: "bool",
     Mineable: "bool", // If a user can mine this
     OwnedBy: "bytes32",

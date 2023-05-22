@@ -5,6 +5,8 @@ pragma solidity >=0.8.0;
 
 import { Collected, CollectedTableId } from "./tables/Collected.sol";
 import { Crafted, CraftedTableId } from "./tables/Crafted.sol";
+import { Thirsty, ThirstyTableId } from "./tables/Thirsty.sol";
+import { Hungry, HungryTableId } from "./tables/Hungry.sol";
 import { Monster, MonsterData, MonsterTableId } from "./tables/Monster.sol";
 import { Encounter, EncounterTableId } from "./tables/Encounter.sol";
 import { EncounterTrigger, EncounterTriggerTableId } from "./tables/EncounterTrigger.sol";

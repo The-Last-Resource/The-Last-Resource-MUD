@@ -22,11 +22,12 @@ enum TerrainType {
   Sea,
   Wood,
   Stone,
-  Water
+  Water,
+  Grass
 }
 
 enum MonsterType {
   None,
   Deer,
-  Gorilla
+  Chicken
 }

@@ -38,6 +38,14 @@ contract StatsSystem is System {
         return Stats.getThirst(player);
     }
 
+    function getHungerTimestamp(bytes32 player) public view returns (uint256) {
+        return Stats.getHunger(player);
+    }
+
+    function getThirstTimestamp(bytes32 player) public view returns (uint256) {
+        return Stats.getThirst(player);
+    }
+
     function timeTillHungry() public view returns (uint256) {
         uint256 hungerTime = getHungerTimestamp();
         if (hungerTime > block.number) {
@@ -50,6 +58,24 @@ contract StatsSystem is System {
         uint256 thirstTime = getThirstTimestamp();
         if (thirstTime > block.number) {
             return thirstTime - block.number;
+        }
+        return 0;
+    }
+
+    function hungrySince(bytes32 player) public view returns (uint256) {
+        uint256 hungerSince = getHungerTimestamp(player);
+
+        if (block.number > hungerSince) {
+            return block.number - hungerSince;
+        }
+        return 0;
+    }
+
+    function thirstySince(bytes32 player) public view returns (uint256) {
+        uint256 thirstSince = getThirstTimestamp(player);
+
+        if (block.number > thirstSince) {
+            return block.number - thirstSince;
         }
         return 0;
     }

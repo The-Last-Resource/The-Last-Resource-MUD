@@ -35,6 +35,36 @@ export function defineContractComponents(world: World) {
         }
       );
     })(),
+    Thirsty: (() => {
+      const tableId = new TableId("", "Thirsty");
+      return defineComponent(
+        world,
+        {
+          result: RecsType.Boolean,
+        },
+        {
+          metadata: {
+            contractId: tableId.toHexString(),
+            tableId: tableId.toString(),
+          },
+        }
+      );
+    })(),
+    Hungry: (() => {
+      const tableId = new TableId("", "Hungry");
+      return defineComponent(
+        world,
+        {
+          result: RecsType.Boolean,
+        },
+        {
+          metadata: {
+            contractId: tableId.toHexString(),
+            tableId: tableId.toString(),
+          },
+        }
+      );
+    })(),
     Monster: (() => {
       const tableId = new TableId("", "Monster");
       return defineComponent(
