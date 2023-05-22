@@ -5,6 +5,51 @@ import { defineComponent, Type as RecsType, World } from "@latticexyz/recs";
 
 export function defineContractComponents(world: World) {
   return {
+    Monster: (() => {
+      const tableId = new TableId("", "Monster");
+      return defineComponent(
+        world,
+        {
+          value: RecsType.Number,
+        },
+        {
+          metadata: {
+            contractId: tableId.toHexString(),
+            tableId: tableId.toString(),
+          },
+        }
+      );
+    })(),
+    Encounter: (() => {
+      const tableId = new TableId("", "Encounter");
+      return defineComponent(
+        world,
+        {
+          monster: RecsType.String,
+        },
+        {
+          metadata: {
+            contractId: tableId.toHexString(),
+            tableId: tableId.toString(),
+          },
+        }
+      );
+    })(),
+    EncounterTrigger: (() => {
+      const tableId = new TableId("", "EncounterTrigger");
+      return defineComponent(
+        world,
+        {
+          value: RecsType.Boolean,
+        },
+        {
+          metadata: {
+            contractId: tableId.toHexString(),
+            tableId: tableId.toString(),
+          },
+        }
+      );
+    })(),
     Resource: (() => {
       const tableId = new TableId("", "Resource");
       return defineComponent(
@@ -149,6 +194,24 @@ export function defineContractComponents(world: World) {
         world,
         {
           value: RecsType.Boolean,
+        },
+        {
+          metadata: {
+            contractId: tableId.toHexString(),
+            tableId: tableId.toString(),
+          },
+        }
+      );
+    })(),
+    Stats: (() => {
+      const tableId = new TableId("", "Stats");
+      return defineComponent(
+        world,
+        {
+          health: RecsType.Number,
+          damage: RecsType.Number,
+          thirst: RecsType.Number,
+          hunger: RecsType.Number,
         },
         {
           metadata: {

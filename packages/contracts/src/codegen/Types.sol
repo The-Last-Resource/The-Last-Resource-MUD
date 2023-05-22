@@ -24,3 +24,9 @@ enum TerrainType {
   Stone,
   Water
 }
+
+enum MonsterType {
+  None,
+  Deer,
+  Gorilla
+}

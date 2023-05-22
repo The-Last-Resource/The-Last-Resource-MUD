@@ -21,4 +21,6 @@ interface IMapSystem {
   function craftPickaxe() external;
 
   function craftBucket() external;
+
+  function getItems() external view returns (bytes32[] memory);
 }

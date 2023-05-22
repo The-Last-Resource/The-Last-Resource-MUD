@@ -14,11 +14,14 @@ import {
     CollectionAttempt,
     Inventory,
     Item,
-    OwnedBy
+    OwnedBy,
+    OwnedByTableId
 } from "../codegen/Tables.sol";
 import {ResourceType, TerrainType, ItemType} from "../codegen/Types.sol";
 import {addressToEntityKey} from "../addressToEntityKey.sol";
 import {positionToEntityKey} from "../positionToEntityKey.sol";
+import {getKeysWithValue} from "@latticexyz/world/src/modules/keyswithvalue/getKeysWithValue.sol";
+import {IWorld} from "../codegen/world/IWorld.sol";
 
 contract MapSystem is System {
     function setTerrain(uint32 x, uint32 y, TerrainType terrainType) public {
@@ -180,5 +183,12 @@ contract MapSystem is System {
         bytes32 item = keccak256(abi.encode(player, blockhash(block.number - 1), block.difficulty));
         Item.set(item, ItemType.Bucket);
         OwnedBy.set(item, player);
+    }
+
+    function getItems() public view returns (bytes32[] memory) {
+        bytes32[] memory keysWithValue =
+            getKeysWithValue(OwnedByTableId, OwnedBy.encode(addressToEntityKey(_msgSender())));
+
+        return keysWithValue;
     }
 }

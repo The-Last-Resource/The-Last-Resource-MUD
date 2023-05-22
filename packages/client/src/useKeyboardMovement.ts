@@ -3,7 +3,14 @@ import { useMUD } from "./MUDContext";
 
 export const useKeyboardMovement = () => {
   const {
-    systemCalls: { moveBy, mine, craftAxe, craftPickaxe, craftBucket },
+    systemCalls: {
+      moveBy,
+      mine,
+      craftAxe,
+      craftPickaxe,
+      craftBucket,
+      getItems,
+    },
   } = useMUD();
 
   useEffect(() => {
@@ -40,6 +47,9 @@ export const useKeyboardMovement = () => {
       }
       if (e.key === "3") {
         craftBucket();
+      }
+      if (e.key === "4") {
+        console.log(getItems());
       }
     };
 

@@ -1,12 +1,31 @@
-import { mudConfig } from "@latticexyz/world/register";
+import { mudConfig, resolveTableId } from "@latticexyz/world/register";
 
 export default mudConfig({
   enums: {
     ResourceType: ["None", "Wood", "Stone", "Water"],
     ItemType: ["Axe", "Pickaxe", "Bucket"],
     TerrainType: ["None", "Tree", "Rock", "Sea", "Wood", "Stone", "Water"],
+    MonsterType: ["None", "Deer", "Gorilla"],
   },
   tables: {
+    // Monster: {
+    //   schema: {
+    //     type: "MonsterType",
+    //     health: "uint32",
+    //     damage: "uint32",
+    //   },
+    // },
+    Monster: "MonsterType",
+    Encounter: {
+      dataStruct: false,
+      keySchema: {
+        player: "bytes32",
+      },
+      schema: {
+        monster: "bytes32",
+      },
+    },
+    EncounterTrigger: "bool",
     Resource: "ResourceType",
     Item: "ItemType",
     MapConfig: {
@@ -40,6 +59,14 @@ export default mudConfig({
       },
     },
     Movable: "bool",
+    Stats: {
+      schema: {
+        health: "uint32",
+        damage: "uint32",
+        thirst: "uint32",
+        hunger: "uint32",
+      },
+    },
     Inventory: {
       schema: {
         wood: "uint32",
@@ -48,4 +75,11 @@ export default mudConfig({
       },
     },
   },
+  modules: [
+    {
+      name: "KeysWithValueModule",
+      root: true,
+      args: [resolveTableId("OwnedBy")],
+    },
+  ],
 });

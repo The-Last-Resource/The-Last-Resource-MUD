@@ -3,17 +3,37 @@ import { GameMap } from "./GameMap";
 import { useMUD } from "./MUDContext";
 import { useKeyboardMovement } from "./useKeyboardMovement";
 import { hexToArray } from "@latticexyz/utils";
-import { TerrainType, terrainTypes } from "./types";
-import { Entity, Has, getComponentValueStrict } from "@latticexyz/recs";
+import { ItemType, TerrainType, terrainTypes } from "./types";
+import { Has, HasValue, getComponentValueStrict } from "@latticexyz/recs";
+import { ethers } from "ethers";
+import { defaultAbiCoder } from "ethers/lib/utils";
 
 export const GameBoard = () => {
   useKeyboardMovement();
 
   const {
-    components: { Player, Position, MapConfig },
+    components: { Player, Position, MapConfig, Item, OwnedBy },
     network: { playerEntity, singletonEntity },
     systemCalls: { spawn },
   } = useMUD();
+
+  const val = useEntityQuery([Has(Item), Has(OwnedBy)])
+    .filter((entity) => {
+      const ownerData = getComponentValueStrict(OwnedBy, entity);
+      const address = defaultAbiCoder.decode(["address"], ownerData.value)[0];
+
+      return (
+        ethers.utils.getAddress(address) ===
+        ethers.utils.getAddress(playerEntity as any)
+      );
+    })
+    .map((itemKey) => {
+      const itemData = getComponentValueStrict(Item, itemKey).value;
+
+      return Object.values(ItemType)[itemData];
+    });
+
+  console.log(val);
 
   const canSpawn = useComponentValue(Player, playerEntity)?.value !== true;
 

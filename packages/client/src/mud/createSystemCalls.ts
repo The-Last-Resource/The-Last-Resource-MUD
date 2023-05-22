@@ -2,19 +2,13 @@ import { Has, HasValue, getComponentValue, runQuery } from "@latticexyz/recs";
 import { uuid, awaitStreamValue } from "@latticexyz/utils";
 import { ClientComponents } from "./createClientComponents";
 import { SetupNetworkResult } from "./setupNetwork";
+import { useEntityQuery } from "@latticexyz/react";
 
 export type SystemCalls = ReturnType<typeof createSystemCalls>;
 
 export function createSystemCalls(
   { playerEntity, singletonEntity, worldSend, txReduced$ }: SetupNetworkResult,
-  {
-    MapConfig,
-    Obstruction,
-    Player,
-    Position,
-    Mineable,
-    CollectionAttempt,
-  }: ClientComponents
+  { MapConfig, Obstruction, Player, Position, Mineable }: ClientComponents
 ) {
   const wrapPosition = (x: number, y: number) => {
     const mapConfig = getComponentValue(MapConfig, singletonEntity);
@@ -176,6 +170,11 @@ export function createSystemCalls(
     await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
   };
 
+  const getItems = async () => {
+    const tx = await worldSend("getItems", []);
+    await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
+  };
+
   return {
     moveTo,
     moveBy,
@@ -184,5 +183,6 @@ export function createSystemCalls(
     craftAxe,
     craftPickaxe,
     craftBucket,
+    getItems,
   };
 }
