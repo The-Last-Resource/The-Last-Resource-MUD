@@ -8,6 +8,26 @@ export default mudConfig({
     MonsterType: ["None", "Deer", "Gorilla"],
   },
   tables: {
+    Collected: {
+      ephemeral: true,
+      dataStruct: false,
+      keySchema: {
+        resource: "bytes32",
+      },
+      schema: {
+        result: "ResourceType",
+      },
+    },
+    Crafted: {
+      ephemeral: true,
+      dataStruct: false,
+      keySchema: {
+        item: "bytes32",
+      },
+      schema: {
+        result: "ItemType",
+      },
+    },
     Monster: {
       schema: {
         monster: "MonsterType",
@@ -36,16 +56,7 @@ export default mudConfig({
         terrain: "bytes",
       },
     },
-    CollectionAttempt: {
-      ephemeral: true,
-      dataStruct: false,
-      keySchema: {
-        resource: "bytes32",
-      },
-      schema: {
-        result: "ResourceType",
-      },
-    },
+
     Obstruction: "bool",
     Mineable: "bool", // If a user can mine this
     OwnedBy: "bytes32",

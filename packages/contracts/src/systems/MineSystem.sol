@@ -11,7 +11,7 @@ import {
     Position,
     Resource,
     Mineable,
-    CollectionAttempt,
+    Collected,
     Inventory,
     Item,
     ItemTableId,
@@ -89,7 +89,7 @@ contract MineSystem is System {
                 Inventory.setWater(player, Inventory.getWater(player) + 1 + multiplier);
             }
 
-            CollectionAttempt.emitEphemeral(player, Resource.get(position));
+            Collected.emitEphemeral(player, Resource.get(position));
             Resource.deleteRecord(position);
             return true;
         }

@@ -18,12 +18,12 @@ import { Schema, SchemaLib } from "@latticexyz/store/src/Schema.sol";
 import { PackedCounter, PackedCounterLib } from "@latticexyz/store/src/PackedCounter.sol";
 
 // Import user types
-import { ResourceType } from "./../Types.sol";
+import { ItemType } from "./../Types.sol";
 
-bytes32 constant _tableId = bytes32(abi.encodePacked(bytes16(""), bytes16("CollectionAttemp")));
-bytes32 constant CollectionAttemptTableId = _tableId;
+bytes32 constant _tableId = bytes32(abi.encodePacked(bytes16(""), bytes16("Crafted")));
+bytes32 constant CraftedTableId = _tableId;
 
-library CollectionAttempt {
+library Crafted {
   /** Get the table's schema */
   function getSchema() internal pure returns (Schema) {
     SchemaType[] memory _schema = new SchemaType[](1);
@@ -43,7 +43,7 @@ library CollectionAttempt {
   function getMetadata() internal pure returns (string memory, string[] memory) {
     string[] memory _fieldNames = new string[](1);
     _fieldNames[0] = "result";
-    return ("CollectionAttempt", _fieldNames);
+    return ("Crafted", _fieldNames);
   }
 
   /** Register the table's schema */
@@ -69,33 +69,33 @@ library CollectionAttempt {
   }
 
   /** Emit the ephemeral event using individual values */
-  function emitEphemeral(bytes32 resource, ResourceType result) internal {
+  function emitEphemeral(bytes32 item, ItemType result) internal {
     bytes memory _data = encode(result);
 
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = bytes32((resource));
+    _keyTuple[0] = bytes32((item));
 
     StoreSwitch.emitEphemeralRecord(_tableId, _keyTuple, _data);
   }
 
   /** Emit the ephemeral event using individual values (using the specified store) */
-  function emitEphemeral(IStore _store, bytes32 resource, ResourceType result) internal {
+  function emitEphemeral(IStore _store, bytes32 item, ItemType result) internal {
     bytes memory _data = encode(result);
 
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = bytes32((resource));
+    _keyTuple[0] = bytes32((item));
 
     _store.emitEphemeralRecord(_tableId, _keyTuple, _data);
   }
 
   /** Tightly pack full data using this table's schema */
-  function encode(ResourceType result) internal view returns (bytes memory) {
+  function encode(ItemType result) internal view returns (bytes memory) {
     return abi.encodePacked(result);
   }
 
   /** Encode keys as a bytes32 array using this table's schema */
-  function encodeKeyTuple(bytes32 resource) internal pure returns (bytes32[] memory _keyTuple) {
+  function encodeKeyTuple(bytes32 item) internal pure returns (bytes32[] memory _keyTuple) {
     _keyTuple = new bytes32[](1);
-    _keyTuple[0] = bytes32((resource));
+    _keyTuple[0] = bytes32((item));
   }
 }

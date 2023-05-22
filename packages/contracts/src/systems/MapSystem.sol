@@ -11,7 +11,6 @@ import {
     Position,
     Resource,
     Mineable,
-    CollectionAttempt,
     Inventory,
     Stats,
     Item,

@@ -11,8 +11,8 @@ import {
     Position,
     Resource,
     Mineable,
-    CollectionAttempt,
     Inventory,
+    Crafted,
     Item,
     ItemTableId,
     OwnedBy,
@@ -44,6 +44,8 @@ contract CraftSystem is System {
         bytes32 item = keccak256(abi.encode(player, blockhash(block.number - 1), block.difficulty));
         Item.set(item, ItemType.Axe);
         OwnedBy.set(item, player);
+
+        Crafted.emitEphemeral(player, ItemType.Axe);
     }
 
     function craftPickaxe() public {
@@ -58,6 +60,8 @@ contract CraftSystem is System {
         bytes32 item = keccak256(abi.encode(player, blockhash(block.number - 1), block.difficulty));
         Item.set(item, ItemType.Pickaxe);
         OwnedBy.set(item, player);
+
+        Crafted.emitEphemeral(player, ItemType.Pickaxe);
     }
 
     function craftBucket() public {
@@ -72,5 +76,7 @@ contract CraftSystem is System {
         bytes32 item = keccak256(abi.encode(player, blockhash(block.number - 1), block.difficulty));
         Item.set(item, ItemType.Bucket);
         OwnedBy.set(item, player);
+
+        Crafted.emitEphemeral(player, ItemType.Bucket);
     }
 }
