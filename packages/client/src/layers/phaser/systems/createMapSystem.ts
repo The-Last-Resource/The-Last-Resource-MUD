@@ -1,6 +1,7 @@
 import {
   Entity,
   Has,
+  defineEnterSystem,
   defineSystem,
   getComponentValueStrict,
 } from "@latticexyz/recs";
@@ -28,13 +29,19 @@ export async function createMapSystem(layer: PhaserLayer) {
     world,
   } = layer;
 
-  defineSystem(world, [Has(MapConfig)], ({ entity }) => {
+  defineEnterSystem(world, [Has(MapConfig)], ({ entity }) => {
     const mapConfig = getComponentValueStrict(MapConfig, singletonEntity);
 
     const { width, height, terrain } = mapConfig;
 
     phaserCamera.setBounds(0, 0, width * TILE_WIDTH, height * TILE_HEIGHT);
     phaserCamera.centerOn((width / 2) * TILE_WIDTH, (height / 2) * TILE_HEIGHT);
+  });
+
+  defineSystem(world, [Has(MapConfig)], ({ entity }) => {
+    const mapConfig = getComponentValueStrict(MapConfig, singletonEntity);
+
+    const { width, height, terrain } = mapConfig;
 
     const convertToMatrix = (
       arr: number[],

@@ -13,15 +13,6 @@ export function createSystemCalls(
   { MapConfig, Obstruction, Player, Position, Mineable }: ClientComponents
 ) {
   const wrapPosition = (x: number, y: number) => {
-    // const mapConfig = getComponentValue(MapConfig, singletonEntity);
-    // if (!mapConfig) {
-    //   throw new Error("mapConfig no yet loaded or initialized");
-    // }
-    // return [
-    //   (x + mapConfig.width) % mapConfig.width,
-    //   (y + mapConfig.height) % mapConfig.height,
-    // ];
-
     return [x, y];
   };
 
