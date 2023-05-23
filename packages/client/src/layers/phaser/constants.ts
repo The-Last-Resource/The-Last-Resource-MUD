@@ -7,10 +7,15 @@ export enum Maps {
 }
 
 export enum Animations {
-  Golem = "Golem",
+  MainCharacterIdle = "MainCharacterIdle",
+  MainCharacterWalk = "MainCharacterWalk",
+  MainCharacterAttack = "MainCharacterAttack",
+  MainCharacterDeath = "MainCharacterDeath",
+  SwordsmanIdle = "SwordsmanIdle",
 }
 export enum Sprites {
-  Golem,
+  MainCharacter,
+  Soldier,
 }
 
 export enum Assets {

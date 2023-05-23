@@ -23,5 +23,8 @@
     "ts-node": "^10.8.2",
     "typescript": "^4.7.4",
     "xml-js": "^1.6.11"
+  },
+  "dependencies": {
+    "chalk": "^5.2.0"
   }
 }
