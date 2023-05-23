@@ -4,6 +4,7 @@ import {
   defineScaleConfig,
   defineMapConfig,
   defineCameraConfig,
+  Asset,
 } from "@latticexyz/phaserx";
 import worldTileset from "../../../public/assets/tilesets/world.png";
 import { TileAnimations, Tileset } from "../../artTypes/world";
@@ -16,6 +17,10 @@ import {
   TILE_WIDTH,
   Animations,
 } from "./constants";
+import { PhaserEngineConfig } from "@latticexyz/phaserx/src/types";
+import { SceneConfig } from "@latticexyz/phaserx/src/types";
+import { Sprite } from "@latticexyz/phaserx/src/types";
+import { Animation } from "@latticexyz/phaserx/src/types";
 
 const ANIMATION_INTERVAL = 200;
 
@@ -58,14 +63,58 @@ export const phaserConfig = {
         [Maps.Main]: mainMap,
       },
       sprites: {
-        [Sprites.Golem]: {
+        [Sprites.MainCharacter]: {
+          assetKey: Assets.MainAtlas,
+          frame: "sprites/main-character/base.png",
+        },
+        [Sprites.Soldier]: {
           assetKey: Assets.MainAtlas,
           frame: "sprites/golem/idle/0.png",
         },
       },
       animations: [
         {
-          key: Animations.Golem,
+          key: Animations.MainCharacterIdle,
+          assetKey: Assets.MainAtlas,
+          startFrame: 0,
+          endFrame: 3,
+          frameRate: 6,
+          repeat: -1,
+          prefix: "sprites/main-character/idle/",
+          suffix: ".png",
+        },
+        {
+          key: Animations.MainCharacterWalk,
+          assetKey: Assets.MainAtlas,
+          startFrame: 0,
+          endFrame: 7,
+          frameRate: 6,
+          repeat: -1,
+          prefix: "sprites/main-character/walk/",
+          suffix: ".png",
+        },
+        {
+          key: Animations.MainCharacterAttack,
+          assetKey: Assets.MainAtlas,
+          startFrame: 0,
+          endFrame: 7,
+          frameRate: 6,
+          repeat: -1,
+          prefix: "sprites/main-character/attack/",
+          suffix: ".png",
+        },
+        {
+          key: Animations.MainCharacterDeath,
+          assetKey: Assets.MainAtlas,
+          startFrame: 0,
+          endFrame: 7,
+          frameRate: 6,
+          repeat: -1,
+          prefix: "sprites/main-character/death/",
+          suffix: ".png",
+        },
+        {
+          key: Animations.SwordsmanIdle,
           assetKey: Assets.MainAtlas,
           startFrame: 0,
           endFrame: 3,
@@ -96,4 +145,7 @@ export const phaserConfig = {
     minZoom: 1,
   }),
   cullingChunkSize: TILE_HEIGHT * 16,
+  physics: {
+    default: "arcade",
+  },
 };
