@@ -70,34 +70,6 @@ export function createPlayerSystem(layer: PhaserLayer) {
   );
 
   input.onKeyPress(
-    (keys) => keys.has("UP"),
-    () => {
-      mine(Direction.Up, putTileAt);
-    }
-  );
-
-  input.onKeyPress(
-    (keys) => keys.has("DOWN"),
-    () => {
-      mine(Direction.Down, putTileAt);
-    }
-  );
-
-  input.onKeyPress(
-    (keys) => keys.has("LEFT"),
-    () => {
-      mine(Direction.Left, putTileAt);
-    }
-  );
-
-  input.onKeyPress(
-    (keys) => keys.has("RIGHT"),
-    () => {
-      mine(Direction.Right, putTileAt);
-    }
-  );
-
-  input.onKeyPress(
     (keys) => keys.has("ONE"),
     () => {
       craftAxe();
@@ -144,5 +116,47 @@ export function createPlayerSystem(layer: PhaserLayer) {
         sprite.setPosition(pixelPosition.x, pixelPosition.y);
       },
     });
+
+    const playActionAnimation = () => {
+      playerObj.setComponent({
+        id: "playerAttackAnimation",
+        now: (sprite) => {
+          sprite.play(Animations.MainCharacterAttack);
+          sprite.playAfterDelay(Animations.MainCharacterIdle, 1000);
+        },
+      });
+    };
+
+    input.onKeyPress(
+      (keys) => keys.has("UP"),
+      () => {
+        playActionAnimation();
+        mine(Direction.Up, putTileAt);
+      }
+    );
+
+    input.onKeyPress(
+      (keys) => keys.has("DOWN"),
+      () => {
+        playActionAnimation();
+        mine(Direction.Down, putTileAt);
+      }
+    );
+
+    input.onKeyPress(
+      (keys) => keys.has("LEFT"),
+      () => {
+        playActionAnimation();
+        mine(Direction.Left, putTileAt);
+      }
+    );
+
+    input.onKeyPress(
+      (keys) => keys.has("RIGHT"),
+      () => {
+        playActionAnimation();
+        mine(Direction.Right, putTileAt);
+      }
+    );
   });
 }
