@@ -48,9 +48,7 @@ export function createMapSystem(layer: PhaserLayer) {
       for (let x = 0; x < width; x++) {
         const coord = { x, y };
 
-        if (map[y][x] === 0) putTileAt(coord, Tileset.Grass, "Background");
-        else if (map[y][x] === 1)
-          putTileAt(coord, Tileset.Forest, "Foreground");
+        if (map[y][x] === 1) putTileAt(coord, Tileset.Forest, "Foreground");
         else if (map[y][x] === 2) putTileAt(coord, Tileset.Stone, "Foreground");
         else if (map[y][x] === 3)
           putTileAt(coord, Tileset.WaterMid, "Foreground");
