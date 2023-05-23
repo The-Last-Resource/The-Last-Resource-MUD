@@ -62,7 +62,7 @@ contract MapSystem is System {
         require(!Obstruction.get(position), "this space is obstructed");
 
         // Before spawning the player, we will initialize their stats
-        Stats.set(player, 5, 1, block.number + 30, block.number + 30);
+        Stats.set(player, 5, 1, block.number + 120, block.number + 120);
 
         Player.set(player, true);
         Position.set(player, x, y);
@@ -87,37 +87,37 @@ contract MapSystem is System {
         y = (y + height) % height;
 
         // Check if its a resource we can collect
-        if (IWorld(_world()).collectResource(position, player)) {
-            removeTerrain(x, y);
-        }
+        // if (IWorld(_world()).collectResource(position, player)) {
+        //     removeTerrain(x, y);
+        // }
 
         // Also check hunger & thirst
-        if (IWorld(_world()).timeTillThirsty(player) == 0) {
-            uint256 thirstySince = IWorld(_world()).thirstySince(player);
-            if (thirstySince == 0) {
-                Thirsty.emitEphemeral(player, true);
-            } else if (thirstySince % 3 == 0) {
-                // Change the number to change how many steps till minus health
-                uint32 currHealth = Stats.getHealth(player);
-                if (currHealth > 0) {
-                    Stats.setHealth(player, Stats.getHealth(player) - 1);
-                }
-            }
-        }
+        // if (IWorld(_world()).timeTillThirsty(player) == 0) {
+        //     uint256 thirstySince = IWorld(_world()).thirstySince(player);
+        //     if (thirstySince == 0) {
+        //         Thirsty.emitEphemeral(player, true);
+        //     } else if (thirstySince % 3 == 0) {
+        //         // Change the number to change how many steps till minus health
+        //         uint32 currHealth = Stats.getHealth(player);
+        //         if (currHealth > 0) {
+        //             Stats.setHealth(player, Stats.getHealth(player) - 1);
+        //         }
+        //     }
+        // }
 
-        if (IWorld(_world()).timeTillHungry(player) == 0 && IWorld(_world()).hungrySince(player) == 0) {
-            uint256 hungrySince = IWorld(_world()).hungrySince(player);
-            if (hungrySince == 0) {
-                Hungry.emitEphemeral(player, true);
-            } else if (hungrySince % 5 == 0) {
-                // Change the number to change how many steps till minus health
-                uint32 currHealth = Stats.getHealth(player);
-                if (currHealth > 0) {
-                    Stats.setHealth(player, Stats.getHealth(player) - 1);
-                }
-            }
-            Hungry.emitEphemeral(player, true);
-        }
+        // if (IWorld(_world()).timeTillHungry(player) == 0 && IWorld(_world()).hungrySince(player) == 0) {
+        //     uint256 hungrySince = IWorld(_world()).hungrySince(player);
+        //     if (hungrySince == 0) {
+        //         Hungry.emitEphemeral(player, true);
+        //     } else if (hungrySince % 5 == 0) {
+        //         // Change the number to change how many steps till minus health
+        //         uint32 currHealth = Stats.getHealth(player);
+        //         if (currHealth > 0) {
+        //             Stats.setHealth(player, Stats.getHealth(player) - 1);
+        //         }
+        //     }
+        //     Hungry.emitEphemeral(player, true);
+        // }
 
         if (Stats.getHealth(player) == 0) Died.emitEphemeral(player, true);
         Position.set(player, x, y);

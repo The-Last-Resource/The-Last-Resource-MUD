@@ -1,10 +1,17 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import useResizeObserver, { ResizeHandler } from "use-resize-observer";
 import { throttle } from "lodash";
 import { createPhaserLayer } from "../../layers/phaser/createPhaserLayer";
 import { NetworkLayer } from "../../layers/network/createNetworkLayer";
 import { usePromiseValue } from "./usePromiseValue";
 import { phaserConfig } from "../../layers/phaser/configurePhaser";
+import { useComponentValue } from "@latticexyz/react";
 
 const createContainer = () => {
   const container = document.createElement("div");

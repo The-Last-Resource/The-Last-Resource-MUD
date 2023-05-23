@@ -14,12 +14,18 @@ import {
 export function createPlayerSystem(layer: PhaserLayer) {
   const {
     networkLayer: {
-      systemCalls: { spawn, move },
+      systemCalls: { spawn, move, mine, craftAxe, craftBucket, craftPickaxe },
       components: { Position, Player },
     },
     world,
     scenes: {
-      Main: { objectPool, input },
+      Main: {
+        objectPool,
+        input,
+        maps: {
+          Main: { putTileAt },
+        },
+      },
     },
   } = layer;
 
@@ -35,21 +41,82 @@ export function createPlayerSystem(layer: PhaserLayer) {
     spawn(position.x, position.y);
   });
 
-	input.onKeyPress((keys) => keys.has("W"), () => {
-		move(Direction.Up);
-	})
+  input.onKeyPress(
+    (keys) => keys.has("W"),
+    () => {
+      move(Direction.Up);
+    }
+  );
 
-	input.onKeyPress((keys) => keys.has("S"), () => {
-		move(Direction.Down);
-	})
+  input.onKeyPress(
+    (keys) => keys.has("S"),
+    () => {
+      move(Direction.Down);
+    }
+  );
 
-	input.onKeyPress((keys) => keys.has("A"), () => {
-		move(Direction.Left);
-	})
+  input.onKeyPress(
+    (keys) => keys.has("A"),
+    () => {
+      move(Direction.Left);
+    }
+  );
 
-	input.onKeyPress((keys) => keys.has("D"), () => {
-		move(Direction.Right);
-	})
+  input.onKeyPress(
+    (keys) => keys.has("D"),
+    () => {
+      move(Direction.Right);
+    }
+  );
+
+  input.onKeyPress(
+    (keys) => keys.has("UP"),
+    () => {
+      mine(Direction.Up, putTileAt);
+    }
+  );
+
+  input.onKeyPress(
+    (keys) => keys.has("DOWN"),
+    () => {
+      mine(Direction.Down, putTileAt);
+    }
+  );
+
+  input.onKeyPress(
+    (keys) => keys.has("LEFT"),
+    () => {
+      mine(Direction.Left, putTileAt);
+    }
+  );
+
+  input.onKeyPress(
+    (keys) => keys.has("RIGHT"),
+    () => {
+      mine(Direction.Right, putTileAt);
+    }
+  );
+
+  input.onKeyPress(
+    (keys) => keys.has("ONE"),
+    () => {
+      craftAxe();
+    }
+  );
+
+  input.onKeyPress(
+    (keys) => keys.has("TWO"),
+    () => {
+      craftPickaxe();
+    }
+  );
+
+  input.onKeyPress(
+    (keys) => keys.has("THREE"),
+    () => {
+      craftBucket();
+    }
+  );
 
   defineEnterSystem(world, [Has(Position), Has(Player)], ({ entity }) => {
     const playerObj = objectPool.get(entity, "Sprite");

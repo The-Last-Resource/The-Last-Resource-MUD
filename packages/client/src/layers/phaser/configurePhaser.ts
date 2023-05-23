@@ -4,9 +4,7 @@ import {
   defineScaleConfig,
   defineMapConfig,
   defineCameraConfig,
-  Asset,
 } from "@latticexyz/phaserx";
-import worldTileset from "../../../public/assets/tilesets/world.png";
 import RPGNatureTileset from "../../../public/assets/tilesets/RPGNatureTileset.png";
 import { TileAnimations, Tileset } from "../../artTypes/RPGNatureTileset";
 import {
@@ -18,10 +16,6 @@ import {
   TILE_WIDTH,
   Animations,
 } from "./constants";
-import { PhaserEngineConfig } from "@latticexyz/phaserx/src/types";
-import { SceneConfig } from "@latticexyz/phaserx/src/types";
-import { Sprite } from "@latticexyz/phaserx/src/types";
-import { Animation } from "@latticexyz/phaserx/src/types";
 
 const ANIMATION_INTERVAL = 200;
 

@@ -51,57 +51,48 @@ contract MineSystem is System {
         Mineable.deleteRecord(entity);
 
         // When you mine an obstruction, it turns into a resource
-        // We set that position to a specific resource type
-        ResourceType resource = ResourceType.Wood;
-        IWorld(_world()).setTerrain(x, y, TerrainType.Wood);
-        if (terrain[(y * width) + x] == bytes1(uint8(TerrainType.Rock))) {
-            resource = ResourceType.Stone;
-            IWorld(_world()).setTerrain(x, y, TerrainType.Stone);
+        // We instantly add it to your inventory
+        if (terrain[(y * width) + x] == bytes1(uint8(TerrainType.Tree))) {
+            collectResource(ResourceType.Wood, player);
+        } else if (terrain[(y * width) + x] == bytes1(uint8(TerrainType.Rock))) {
+            collectResource(ResourceType.Stone, player);
         } else if (terrain[(y * width) + x] == bytes1(uint8(TerrainType.Sea))) {
-            resource = ResourceType.Water;
-            IWorld(_world()).setTerrain(x, y, TerrainType.Water);
+            collectResource(ResourceType.Water, player);
         }
 
-        Resource.set(entity, resource);
+        IWorld(_world()).removeTerrain(x, y);
     }
 
-    /**
-     * We can add additional logic where if they have a specific tool, their resource multiplies
-     */
-    function collectResource(bytes32 position, bytes32 player) public returns (bool) {
-        if (uint256(Resource.get(position)) > 0) {
-            uint32 multiplier = 0;
-            if (Resource.get(position) == ResourceType.Wood) {
-                if (IWorld(_world()).getAxe(player) > 0) {
-                    multiplier = 1;
-                }
-                Inventory.setWood(player, Inventory.getWood(player) + 1 + multiplier);
+    function collectResource(ResourceType resource, bytes32 player) public returns (bool) {
+        uint32 multiplier = 0;
+        if (resource == ResourceType.Wood) {
+            if (IWorld(_world()).getAxe(player) > 0) {
+                multiplier = 1;
             }
-            if (Resource.get(position) == ResourceType.Stone) {
-                if (IWorld(_world()).getPickaxe(player) > 0) {
-                    multiplier = 1;
-                }
-                Inventory.setStone(player, Inventory.getStone(player) + 1 + multiplier);
-            }
-            // For food and water, we add time rather than save in inventory
-            if (Resource.get(position) == ResourceType.Water) {
-                if (IWorld(_world()).getBucket(player) > 0) {
-                    multiplier = 2;
-                }
-                Stats.setThirst(player, Stats.getThirst(player) + 30 * multiplier);
-            }
-            if (Resource.get(position) == ResourceType.Food) {
-                if (IWorld(_world()).getBucket(player) > 0) {
-                    multiplier = 2;
-                }
-                Stats.setHunger(player, Stats.getHunger(player) + 30 * multiplier);
-            }
-
-            Collected.emitEphemeral(player, Resource.get(position));
-            Resource.deleteRecord(position);
-            return true;
+            Inventory.setWood(player, Inventory.getWood(player) + 1 + multiplier);
         }
-        return false;
+        if (resource == ResourceType.Stone) {
+            if (IWorld(_world()).getPickaxe(player) > 0) {
+                multiplier = 1;
+            }
+            Inventory.setStone(player, Inventory.getStone(player) + 1 + multiplier);
+        }
+        // For food and water, we add time rather than save in inventory
+        if (resource == ResourceType.Water) {
+            if (IWorld(_world()).getBucket(player) > 0) {
+                multiplier = 2;
+            }
+            Stats.setThirst(player, Stats.getThirst(player) + 30 * multiplier);
+        }
+        if (resource == ResourceType.Food) {
+            if (IWorld(_world()).getBucket(player) > 0) {
+                multiplier = 2;
+            }
+            Stats.setHunger(player, Stats.getHunger(player) + 30 * multiplier);
+        }
+
+        Collected.emitEphemeral(player, resource);
+        return true;
     }
 
     function distance(uint32 fromX, uint32 fromY, uint32 toX, uint32 toY) internal pure returns (uint32) {
