@@ -6,7 +6,8 @@ enum ResourceType {
   None,
   Wood,
   Stone,
-  Water
+  Water,
+  Food
 }
 
 enum ItemType {
@@ -23,11 +24,19 @@ enum TerrainType {
   Wood,
   Stone,
   Water,
-  Grass
+  Food
 }
 
 enum MonsterType {
   None,
   Deer,
   Chicken
+}
+
+enum Direction {
+  Unknown,
+  Up,
+  Down,
+  Left,
+  Right
 }

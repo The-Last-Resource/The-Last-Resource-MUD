@@ -17,10 +17,10 @@ import { EncodeArray } from "@latticexyz/store/src/tightcoder/EncodeArray.sol";
 import { Schema, SchemaLib } from "@latticexyz/store/src/Schema.sol";
 import { PackedCounter, PackedCounterLib } from "@latticexyz/store/src/PackedCounter.sol";
 
-bytes32 constant _tableId = bytes32(abi.encodePacked(bytes16(""), bytes16("EncounterTrigger")));
-bytes32 constant EncounterTriggerTableId = _tableId;
+bytes32 constant _tableId = bytes32(abi.encodePacked(bytes16(""), bytes16("Died")));
+bytes32 constant DiedTableId = _tableId;
 
-library EncounterTrigger {
+library Died {
   /** Get the table's schema */
   function getSchema() internal pure returns (Schema) {
     SchemaType[] memory _schema = new SchemaType[](1);
@@ -39,8 +39,8 @@ library EncounterTrigger {
   /** Get the table's metadata */
   function getMetadata() internal pure returns (string memory, string[] memory) {
     string[] memory _fieldNames = new string[](1);
-    _fieldNames[0] = "value";
-    return ("EncounterTrigger", _fieldNames);
+    _fieldNames[0] = "result";
+    return ("Died", _fieldNames);
   }
 
   /** Register the table's schema */
@@ -65,65 +65,35 @@ library EncounterTrigger {
     _store.setMetadata(_tableId, _tableName, _fieldNames);
   }
 
-  /** Get value */
-  function get(bytes32 key) internal view returns (bool value) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = bytes32((key));
+  /** Emit the ephemeral event using individual values */
+  function emitEphemeral(bytes32 player, bool result) internal {
+    bytes memory _data = encode(result);
 
-    bytes memory _blob = StoreSwitch.getField(_tableId, _keyTuple, 0);
-    return (_toBool(uint8(Bytes.slice1(_blob, 0))));
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((player));
+
+    StoreSwitch.emitEphemeralRecord(_tableId, _keyTuple, _data);
   }
 
-  /** Get value (using the specified store) */
-  function get(IStore _store, bytes32 key) internal view returns (bool value) {
+  /** Emit the ephemeral event using individual values (using the specified store) */
+  function emitEphemeral(IStore _store, bytes32 player, bool result) internal {
+    bytes memory _data = encode(result);
+
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = bytes32((key));
+    _keyTuple[0] = bytes32((player));
 
-    bytes memory _blob = _store.getField(_tableId, _keyTuple, 0);
-    return (_toBool(uint8(Bytes.slice1(_blob, 0))));
-  }
-
-  /** Set value */
-  function set(bytes32 key, bool value) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = bytes32((key));
-
-    StoreSwitch.setField(_tableId, _keyTuple, 0, abi.encodePacked((value)));
-  }
-
-  /** Set value (using the specified store) */
-  function set(IStore _store, bytes32 key, bool value) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = bytes32((key));
-
-    _store.setField(_tableId, _keyTuple, 0, abi.encodePacked((value)));
+    _store.emitEphemeralRecord(_tableId, _keyTuple, _data);
   }
 
   /** Tightly pack full data using this table's schema */
-  function encode(bool value) internal view returns (bytes memory) {
-    return abi.encodePacked(value);
+  function encode(bool result) internal view returns (bytes memory) {
+    return abi.encodePacked(result);
   }
 
   /** Encode keys as a bytes32 array using this table's schema */
-  function encodeKeyTuple(bytes32 key) internal pure returns (bytes32[] memory _keyTuple) {
+  function encodeKeyTuple(bytes32 player) internal pure returns (bytes32[] memory _keyTuple) {
     _keyTuple = new bytes32[](1);
-    _keyTuple[0] = bytes32((key));
-  }
-
-  /* Delete all data for given keys */
-  function deleteRecord(bytes32 key) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = bytes32((key));
-
-    StoreSwitch.deleteRecord(_tableId, _keyTuple);
-  }
-
-  /* Delete all data for given keys (using the specified store) */
-  function deleteRecord(IStore _store, bytes32 key) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = bytes32((key));
-
-    _store.deleteRecord(_tableId, _keyTuple);
+    _keyTuple[0] = bytes32((player));
   }
 }
 

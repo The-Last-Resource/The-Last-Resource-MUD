@@ -16,9 +16,13 @@ import {
     Item,
     ItemTableId,
     OwnedBy,
-    OwnedByTableId
+    OwnedByTableId,
+    Hungry,
+    Thirsty,
+    Stats,
+    Died
 } from "../codegen/Tables.sol";
-import {ResourceType, TerrainType, ItemType} from "../codegen/Types.sol";
+import {ResourceType, TerrainType, ItemType, Direction} from "../codegen/Types.sol";
 import {addressToEntityKey} from "../addressToEntityKey.sol";
 import {positionToEntityKey} from "../positionToEntityKey.sol";
 import {IWorld} from "../codegen/world/IWorld.sol";
@@ -65,7 +69,7 @@ contract MapSystem is System {
         Movable.set(player, true);
     }
 
-    function move(uint32 x, uint32 y) public {
+    function moveTo(uint32 x, uint32 y) public {
         bytes32 player = addressToEntityKey(_msgSender());
         require(Movable.get(player), "cannot move");
 
@@ -74,6 +78,8 @@ contract MapSystem is System {
 
         bytes32 position = positionToEntityKey(x, y);
         require(!Obstruction.get(position), "this space is obstructed");
+
+        require(Stats.getHealth(player) > 0, "Player has died");
 
         // Constrain position to map size, wrapping around if necessary
         (uint32 width, uint32 height,) = MapConfig.get();
@@ -85,7 +91,55 @@ contract MapSystem is System {
             removeTerrain(x, y);
         }
 
+        // Also check hunger & thirst
+        if (IWorld(_world()).timeTillThirsty(player) == 0) {
+            uint256 thirstySince = IWorld(_world()).thirstySince(player);
+            if (thirstySince == 0) {
+                Thirsty.emitEphemeral(player, true);
+            } else if (thirstySince % 3 == 0) {
+                // Change the number to change how many steps till minus health
+                uint32 currHealth = Stats.getHealth(player);
+                if (currHealth > 0) {
+                    Stats.setHealth(player, Stats.getHealth(player) - 1);
+                }
+            }
+        }
+
+        if (IWorld(_world()).timeTillHungry(player) == 0 && IWorld(_world()).hungrySince(player) == 0) {
+            uint256 hungrySince = IWorld(_world()).hungrySince(player);
+            if (hungrySince == 0) {
+                Hungry.emitEphemeral(player, true);
+            } else if (hungrySince % 5 == 0) {
+                // Change the number to change how many steps till minus health
+                uint32 currHealth = Stats.getHealth(player);
+                if (currHealth > 0) {
+                    Stats.setHealth(player, Stats.getHealth(player) - 1);
+                }
+            }
+            Hungry.emitEphemeral(player, true);
+        }
+
+        if (Stats.getHealth(player) == 0) Died.emitEphemeral(player, true);
         Position.set(player, x, y);
+    }
+
+    function move(Direction direction) public {
+        require(direction != Direction.Unknown, "Unknown direction");
+
+        bytes32 player = addressToEntityKey(_msgSender());
+        (uint32 x, uint32 y) = Position.get(player);
+
+        if (direction == Direction.Up) {
+            y -= 1;
+        } else if (direction == Direction.Down) {
+            y += 1;
+        } else if (direction == Direction.Left) {
+            x -= 1;
+        } else if (direction == Direction.Right) {
+            x += 1;
+        }
+
+        moveTo(x, y);
     }
 
     function distance(uint32 fromX, uint32 fromY, uint32 toX, uint32 toY) internal pure returns (uint32) {

@@ -65,6 +65,21 @@ export function defineContractComponents(world: World) {
         }
       );
     })(),
+    Died: (() => {
+      const tableId = new TableId("", "Died");
+      return defineComponent(
+        world,
+        {
+          result: RecsType.Boolean,
+        },
+        {
+          metadata: {
+            contractId: tableId.toHexString(),
+            tableId: tableId.toString(),
+          },
+        }
+      );
+    })(),
     Monster: (() => {
       const tableId = new TableId("", "Monster");
       return defineComponent(
@@ -73,36 +88,6 @@ export function defineContractComponents(world: World) {
           monster: RecsType.Number,
           health: RecsType.Number,
           damage: RecsType.Number,
-        },
-        {
-          metadata: {
-            contractId: tableId.toHexString(),
-            tableId: tableId.toString(),
-          },
-        }
-      );
-    })(),
-    Encounter: (() => {
-      const tableId = new TableId("", "Encounter");
-      return defineComponent(
-        world,
-        {
-          monster: RecsType.String,
-        },
-        {
-          metadata: {
-            contractId: tableId.toHexString(),
-            tableId: tableId.toString(),
-          },
-        }
-      );
-    })(),
-    EncounterTrigger: (() => {
-      const tableId = new TableId("", "EncounterTrigger");
-      return defineComponent(
-        world,
-        {
-          value: RecsType.Boolean,
         },
         {
           metadata: {

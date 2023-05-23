@@ -16,7 +16,8 @@ import {
     Item,
     ItemTableId,
     OwnedBy,
-    OwnedByTableId
+    OwnedByTableId,
+    Stats
 } from "../codegen/Tables.sol";
 import {ResourceType, TerrainType, ItemType} from "../codegen/Types.sol";
 import {addressToEntityKey} from "../addressToEntityKey.sol";
@@ -82,11 +83,18 @@ contract MineSystem is System {
                 }
                 Inventory.setStone(player, Inventory.getStone(player) + 1 + multiplier);
             }
+            // For food and water, we add time rather than save in inventory
             if (Resource.get(position) == ResourceType.Water) {
                 if (IWorld(_world()).getBucket(player) > 0) {
-                    multiplier = 1;
+                    multiplier = 2;
                 }
-                Inventory.setWater(player, Inventory.getWater(player) + 1 + multiplier);
+                Stats.setThirst(player, Stats.getThirst(player) + 30 * multiplier);
+            }
+            if (Resource.get(position) == ResourceType.Food) {
+                if (IWorld(_world()).getBucket(player) > 0) {
+                    multiplier = 2;
+                }
+                Stats.setHunger(player, Stats.getHunger(player) + 30 * multiplier);
             }
 
             Collected.emitEphemeral(player, Resource.get(position));
