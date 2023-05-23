@@ -5,7 +5,7 @@
     },
     "textures": [
         {
-            "image": "atlas.png?timestamp=1684810110597",
+            "image": "atlas.png?timestamp=1684825278057",
             "format": "RGBA8888",
             "size": {
                 "w": 2048,

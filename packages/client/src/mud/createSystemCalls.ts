@@ -2,6 +2,7 @@ import { Has, HasValue, getComponentValue, runQuery } from "@latticexyz/recs";
 import { uuid, awaitStreamValue } from "@latticexyz/utils";
 import { ClientComponents } from "./createClientComponents";
 import { SetupNetworkResult } from "./setupNetwork";
+import { Direction } from "../layers/phaser/constants";
 
 export type SystemCalls = ReturnType<typeof createSystemCalls>;
 
@@ -29,6 +30,10 @@ export function createSystemCalls(
   const isMineable = (x: number, y: number) => {
     return runQuery([Has(Mineable), HasValue(Position, { x, y })]).size > 0;
   };
+
+  const move = async (direction: Direction) => {
+    worldSend("move", [direction]);
+  }
 
   const moveTo = async (inputX: number, inputY: number) => {
     if (!playerEntity) {
@@ -160,6 +165,7 @@ export function createSystemCalls(
   };
 
   return {
+    move,
     moveTo,
     moveBy,
     spawn,
