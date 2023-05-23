@@ -6,6 +6,13 @@ export default mudConfig({
     ItemType: ["Axe", "Pickaxe", "Bucket"],
     TerrainType: ["None", "Tree", "Rock", "Sea", "Wood", "Stone", "Water", "Grass"],
     MonsterType: ["None", "Deer", "Chicken"],
+    Direction: [
+      "Unknown",
+      "Up",
+      "Down",
+      "Left",
+      "Right",
+    ],
   },
   tables: {
     Collected: {
