@@ -7,9 +7,14 @@ export enum Maps {
 }
 
 export enum Animations {
+  MainCharacterIdle = "MainCharacterIdle",
+  MainCharacterWalk = "MainCharacterWalk",
+  MainCharacterAttack = "MainCharacterAttack",
+  MainCharacterDeath = "MainCharacterDeath",
   SwordsmanIdle = "SwordsmanIdle",
 }
 export enum Sprites {
+  MainCharacter,
   Soldier,
 }
 
