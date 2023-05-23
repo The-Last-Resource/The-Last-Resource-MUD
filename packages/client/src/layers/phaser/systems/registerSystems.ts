@@ -4,7 +4,7 @@ import { createMapSystem } from "./createMapSystem";
 import { createPlayerSystem } from "./createPlayerSystem";
 
 export const registerSystems = (layer: PhaserLayer) => {
-  createCamera(layer);
+  // createCamera(layer);
   createMapSystem(layer);
   createPlayerSystem(layer);
 };

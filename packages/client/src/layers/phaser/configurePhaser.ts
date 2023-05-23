@@ -7,7 +7,8 @@ import {
   Asset,
 } from "@latticexyz/phaserx";
 import worldTileset from "../../../public/assets/tilesets/world.png";
-import { TileAnimations, Tileset } from "../../artTypes/world";
+import RPGNatureTileset from "../../../public/assets/tilesets/RPGNatureTileset.png";
+import { TileAnimations, Tileset } from "../../artTypes/RPGNatureTileset";
 import {
   Sprites,
   Assets,
@@ -47,7 +48,7 @@ export const phaserConfig = {
         [Assets.Tileset]: {
           type: AssetType.Image,
           key: Assets.Tileset,
-          path: worldTileset,
+          path: RPGNatureTileset,
         },
         [Assets.MainAtlas]: {
           type: AssetType.MultiAtlas,
