@@ -62,6 +62,10 @@ export const phaserConfig = {
           assetKey: Assets.MainAtlas,
           frame: "sprites/main-character/base.png",
         },
+        [Sprites.Chicken]: {
+          assetKey: Assets.MainAtlas,
+          frame: "sprites/chicken/0.png",
+        },
         [Sprites.Soldier]: {
           assetKey: Assets.MainAtlas,
           frame: "sprites/golem/idle/0.png",
@@ -106,6 +110,16 @@ export const phaserConfig = {
           frameRate: 6,
           repeat: -1,
           prefix: "sprites/main-character/death/",
+          suffix: ".png",
+        },
+        {
+          key: Animations.ChickenIdle,
+          assetKey: Assets.MainAtlas,
+          startFrame: 0,
+          endFrame: 15,
+          frameRate: 6,
+          repeat: -1,
+          prefix: "sprites/chicken/",
           suffix: ".png",
         },
         {

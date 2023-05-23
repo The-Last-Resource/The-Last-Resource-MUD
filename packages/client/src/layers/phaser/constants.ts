@@ -12,10 +12,13 @@ export enum Animations {
   MainCharacterAttack = "MainCharacterAttack",
   MainCharacterDeath = "MainCharacterDeath",
   SwordsmanIdle = "SwordsmanIdle",
+  ChickenIdle = "ChickenIdle",
 }
+
 export enum Sprites {
   MainCharacter,
   Soldier,
+  Chicken,
 }
 
 export enum Assets {

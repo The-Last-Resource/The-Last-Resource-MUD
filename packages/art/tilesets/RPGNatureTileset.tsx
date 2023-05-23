@@ -21,11 +21,6 @@
    <property name="name" value="Sign"/>
   </properties>
  </tile>
- <tile id="23">
-  <properties>
-   <property name="name" value="Mushrooms"/>
-  </properties>
- </tile>
  <tile id="130">
   <properties>
    <property name="name" value="WaterUpLeft"/>

@@ -5,7 +5,7 @@ export default mudConfig({
     ResourceType: ["None", "Wood", "Stone", "Water", "Food"],
     ItemType: ["Axe", "Pickaxe", "Bucket"],
     TerrainType: ["None", "Tree", "Rock", "Sea", "Wood", "Stone", "Water", "Food"],
-    MonsterType: ["None", "Deer", "Chicken"],
+    MonsterType: ["None", "Chicken"],
     Direction: ["Unknown", "Up", "Down", "Left", "Right"],
   },
   tables: {

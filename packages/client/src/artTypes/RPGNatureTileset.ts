@@ -5,7 +5,6 @@ export enum Tileset {
   Forest = 21,
   Stone = 22,
   Sign = 2,
-  Mushrooms = 23,
   WaterUpLeft = 130,
   WaterUp = 131,
   WaterUpRight = 132,

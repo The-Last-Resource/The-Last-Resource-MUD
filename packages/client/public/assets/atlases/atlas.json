@@ -5,7 +5,7 @@
     },
     "textures": [
         {
-            "image": "atlas.png?timestamp=1684832954543",
+            "image": "atlas.png?timestamp=1684851669954",
             "format": "RGBA8888",
             "size": {
                 "w": 2048,
@@ -56,7 +56,7 @@
                     }
                 },
                 {
-                    "filename": "sprites/golem/attack/0.png",
+                    "filename": "sprites/chicken/0.png",
                     "rotated": false,
                     "trimmed": false,
                     "sourceSize": {
@@ -72,6 +72,195 @@
                     "frame": {
                         "x": 192,
                         "y": 48,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/1.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 224,
+                        "y": 48,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/10.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 256,
+                        "y": 48,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/11.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 288,
+                        "y": 48,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/14.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 0,
+                        "y": 96,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/15.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 32,
+                        "y": 96,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/5.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 64,
+                        "y": 96,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/6.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 96,
+                        "y": 96,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/9.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 128,
+                        "y": 96,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/golem/attack/0.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 160,
+                        "y": 96,
                         "w": 32,
                         "h": 32
                     }
@@ -91,8 +280,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 224,
-                        "y": 48,
+                        "x": 192,
+                        "y": 80,
                         "w": 32,
                         "h": 32
                     }
@@ -112,8 +301,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 256,
-                        "y": 48,
+                        "x": 224,
+                        "y": 80,
                         "w": 32,
                         "h": 32
                     }
@@ -133,8 +322,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 288,
-                        "y": 48,
+                        "x": 256,
+                        "y": 80,
                         "w": 32,
                         "h": 32
                     }
@@ -154,8 +343,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 0,
-                        "y": 96,
+                        "x": 288,
+                        "y": 80,
                         "w": 32,
                         "h": 32
                     }
@@ -175,8 +364,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 32,
-                        "y": 96,
+                        "x": 0,
+                        "y": 128,
                         "w": 32,
                         "h": 32
                     }
@@ -196,8 +385,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 64,
-                        "y": 96,
+                        "x": 32,
+                        "y": 128,
                         "w": 32,
                         "h": 32
                     }
@@ -217,8 +406,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 96,
-                        "y": 96,
+                        "x": 64,
+                        "y": 128,
                         "w": 32,
                         "h": 32
                     }
@@ -238,8 +427,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 128,
-                        "y": 96,
+                        "x": 96,
+                        "y": 128,
                         "w": 32,
                         "h": 32
                     }
@@ -259,8 +448,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 160,
-                        "y": 96,
+                        "x": 128,
+                        "y": 128,
                         "w": 32,
                         "h": 32
                     }
@@ -280,8 +469,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 192,
-                        "y": 80,
+                        "x": 160,
+                        "y": 128,
                         "w": 32,
                         "h": 32
                     }
@@ -301,8 +490,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 224,
-                        "y": 80,
+                        "x": 192,
+                        "y": 112,
                         "w": 32,
                         "h": 32
                     }
@@ -322,8 +511,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 256,
-                        "y": 80,
+                        "x": 224,
+                        "y": 112,
                         "w": 32,
                         "h": 32
                     }
@@ -343,8 +532,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 288,
-                        "y": 80,
+                        "x": 256,
+                        "y": 112,
                         "w": 32,
                         "h": 32
                     }
@@ -364,8 +553,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 0,
-                        "y": 128,
+                        "x": 288,
+                        "y": 112,
                         "w": 32,
                         "h": 32
                     }
@@ -385,8 +574,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 32,
-                        "y": 128,
+                        "x": 0,
+                        "y": 160,
                         "w": 32,
                         "h": 32
                     }
@@ -406,8 +595,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 64,
-                        "y": 128,
+                        "x": 32,
+                        "y": 160,
                         "w": 32,
                         "h": 32
                     }
@@ -427,8 +616,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 96,
-                        "y": 128,
+                        "x": 64,
+                        "y": 160,
                         "w": 32,
                         "h": 32
                     }
@@ -448,8 +637,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 128,
-                        "y": 128,
+                        "x": 96,
+                        "y": 160,
                         "w": 32,
                         "h": 32
                     }
@@ -469,8 +658,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 160,
-                        "y": 128,
+                        "x": 128,
+                        "y": 160,
                         "w": 32,
                         "h": 32
                     }
@@ -490,8 +679,8 @@
                         "h": 32
                     },
                     "frame": {
-                        "x": 192,
-                        "y": 112,
+                        "x": 160,
+                        "y": 160,
                         "w": 32,
                         "h": 32
                     }
@@ -511,8 +700,8 @@
                         "h": 30
                     },
                     "frame": {
-                        "x": 224,
-                        "y": 112,
+                        "x": 192,
+                        "y": 144,
                         "w": 32,
                         "h": 30
                     }
@@ -532,8 +721,8 @@
                         "h": 30
                     },
                     "frame": {
-                        "x": 256,
-                        "y": 112,
+                        "x": 224,
+                        "y": 144,
                         "w": 32,
                         "h": 30
                     }
@@ -553,8 +742,8 @@
                         "h": 30
                     },
                     "frame": {
-                        "x": 288,
-                        "y": 112,
+                        "x": 256,
+                        "y": 144,
                         "w": 32,
                         "h": 30
                     }
@@ -574,8 +763,8 @@
                         "h": 30
                     },
                     "frame": {
-                        "x": 0,
-                        "y": 160,
+                        "x": 288,
+                        "y": 144,
                         "w": 32,
                         "h": 30
                     }
@@ -595,8 +784,8 @@
                         "h": 30
                     },
                     "frame": {
-                        "x": 32,
-                        "y": 160,
+                        "x": 0,
+                        "y": 192,
                         "w": 32,
                         "h": 30
                     }
@@ -616,8 +805,8 @@
                         "h": 30
                     },
                     "frame": {
-                        "x": 64,
-                        "y": 160,
+                        "x": 32,
+                        "y": 192,
                         "w": 32,
                         "h": 30
                     }
@@ -637,8 +826,8 @@
                         "h": 30
                     },
                     "frame": {
-                        "x": 96,
-                        "y": 160,
+                        "x": 64,
+                        "y": 192,
                         "w": 32,
                         "h": 30
                     }
@@ -659,7 +848,7 @@
                     },
                     "frame": {
                         "x": 192,
-                        "y": 144,
+                        "y": 174,
                         "w": 32,
                         "h": 32
                     }
@@ -680,7 +869,7 @@
                     },
                     "frame": {
                         "x": 224,
-                        "y": 142,
+                        "y": 174,
                         "w": 32,
                         "h": 32
                     }
@@ -701,7 +890,7 @@
                     },
                     "frame": {
                         "x": 256,
-                        "y": 142,
+                        "y": 174,
                         "w": 32,
                         "h": 32
                     }
@@ -722,7 +911,7 @@
                     },
                     "frame": {
                         "x": 288,
-                        "y": 142,
+                        "y": 174,
                         "w": 30,
                         "h": 32
                     }
@@ -743,7 +932,7 @@
                     },
                     "frame": {
                         "x": 0,
-                        "y": 190,
+                        "y": 222,
                         "w": 32,
                         "h": 32
                     }
@@ -764,7 +953,7 @@
                     },
                     "frame": {
                         "x": 32,
-                        "y": 190,
+                        "y": 222,
                         "w": 32,
                         "h": 32
                     }
@@ -785,7 +974,7 @@
                     },
                     "frame": {
                         "x": 64,
-                        "y": 190,
+                        "y": 222,
                         "w": 32,
                         "h": 32
                     }
@@ -806,7 +995,7 @@
                     },
                     "frame": {
                         "x": 96,
-                        "y": 190,
+                        "y": 206,
                         "w": 32,
                         "h": 32
                     }
@@ -827,7 +1016,7 @@
                     },
                     "frame": {
                         "x": 128,
-                        "y": 176,
+                        "y": 206,
                         "w": 32,
                         "h": 32
                     }
@@ -848,7 +1037,7 @@
                     },
                     "frame": {
                         "x": 160,
-                        "y": 160,
+                        "y": 192,
                         "w": 32,
                         "h": 32
                     }
@@ -869,7 +1058,7 @@
                     },
                     "frame": {
                         "x": 192,
-                        "y": 176,
+                        "y": 206,
                         "w": 32,
                         "h": 32
                     }
@@ -890,13 +1079,13 @@
                     },
                     "frame": {
                         "x": 224,
-                        "y": 174,
+                        "y": 206,
                         "w": 32,
                         "h": 32
                     }
                 },
                 {
-                    "filename": "sprites/golem/idle/3.png",
+                    "filename": "sprites/chicken/12.png",
                     "rotated": false,
                     "trimmed": false,
                     "sourceSize": {
@@ -917,6 +1106,153 @@
                     }
                 },
                 {
+                    "filename": "sprites/chicken/2.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 192,
+                        "y": 48,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/4.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 192,
+                        "y": 48,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/8.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 192,
+                        "y": 48,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/13.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 224,
+                        "y": 48,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/3.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 32,
+                        "y": 96,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/chicken/7.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 64,
+                        "y": 96,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
+                    "filename": "sprites/golem/idle/3.png",
+                    "rotated": false,
+                    "trimmed": false,
+                    "sourceSize": {
+                        "w": 32,
+                        "h": 32
+                    },
+                    "spriteSourceSize": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 32,
+                        "h": 32
+                    },
+                    "frame": {
+                        "x": 160,
+                        "y": 96,
+                        "w": 32,
+                        "h": 32
+                    }
+                },
+                {
                     "filename": "sprites/main-character/death/7.png",
                     "rotated": false,
                     "trimmed": false,
@@ -931,8 +1267,8 @@
                         "h": 30
                     },
                     "frame": {
-                        "x": 96,
-                        "y": 160,
+                        "x": 64,
+                        "y": 192,
                         "w": 32,
                         "h": 30
                     }

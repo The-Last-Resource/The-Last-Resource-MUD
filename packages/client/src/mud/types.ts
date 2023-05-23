@@ -19,3 +19,8 @@ export enum TerrainType {
   Water,
   Food,
 }
+
+export enum MonsterType {
+  None,
+  Chicken,
+}
