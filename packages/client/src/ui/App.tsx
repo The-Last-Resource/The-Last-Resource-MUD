@@ -17,6 +17,7 @@ export const App = () => {
 
   return (
     <div>
+      <UIRoot />
       <PhaserLayer networkLayer={networkLayer} />
       <ToastContainer
         position="top-center"
@@ -30,7 +31,6 @@ export const App = () => {
         pauseOnHover
         theme="light"
       />
-      <UIRoot />
     </div>
   );
 };

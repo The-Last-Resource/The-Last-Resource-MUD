@@ -26,6 +26,18 @@ export const LoadingScreen = () => {
 
   return (
     <BootScreen>
+      <div
+        style={{
+          width: "100%",
+          flexDirection: "row",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Header>The Last Resource</Header>
+      </div>
+      <br />
       {loadingState.msg}
       <LoadingContainer>
         {Math.floor(loadingState.percentage)}%
@@ -49,4 +61,13 @@ const LoadingContainer = styled.div`
 const Loading = styled(LoadingBar)`
   width: 100%;
   min-width: 200px;
+`;
+
+const Header = styled.h1`
+  font-style: bold;
+  color: white;
+  font-size: 36px;
+  text-align: center;
+  width: 100%;
+  margin: 48px 12px;
 `;
