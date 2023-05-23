@@ -20,31 +20,6 @@ export const createPhaserLayer = async (
   } = await createPhaserEngine(phaserConfig);
   world.registerDisposer(disposePhaser);
 
-  await new Promise((r) => setTimeout(r, 5000));
-
-  const mapConfig = getComponentValue(
-    networkLayer.components.MapConfig,
-    networkLayer.singletonEntity
-  );
-
-  const { camera } = scenes.Main;
-
-  if (mapConfig) {
-    const width = mapConfig.width;
-    const height = mapConfig.height;
-
-    camera.phaserCamera.setBounds(
-      0,
-      0,
-      width * TILE_WIDTH,
-      height * TILE_HEIGHT
-    );
-    camera.phaserCamera.centerOn(
-      (width / 2) * TILE_WIDTH,
-      (height / 2) * TILE_HEIGHT
-    );
-  }
-
   const components = {};
 
   const layer = {
@@ -53,7 +28,6 @@ export const createPhaserLayer = async (
     game,
     scenes,
     components,
-    mapConfig,
   };
 
   registerSystems(layer);
