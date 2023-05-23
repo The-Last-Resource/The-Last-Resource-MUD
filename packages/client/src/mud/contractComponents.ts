@@ -97,36 +97,6 @@ export function defineContractComponents(world: World) {
         }
       );
     })(),
-    Encounter: (() => {
-      const tableId = new TableId("", "Encounter");
-      return defineComponent(
-        world,
-        {
-          monster: RecsType.String,
-        },
-        {
-          metadata: {
-            contractId: tableId.toHexString(),
-            tableId: tableId.toString(),
-          },
-        }
-      );
-    })(),
-    EncounterTrigger: (() => {
-      const tableId = new TableId("", "EncounterTrigger");
-      return defineComponent(
-        world,
-        {
-          value: RecsType.Boolean,
-        },
-        {
-          metadata: {
-            contractId: tableId.toHexString(),
-            tableId: tableId.toString(),
-          },
-        }
-      );
-    })(),
     Resource: (() => {
       const tableId = new TableId("", "Resource");
       return defineComponent(

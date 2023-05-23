@@ -23,12 +23,6 @@ import { MonsterType } from "./../Types.sol";
 bytes32 constant _tableId = bytes32(abi.encodePacked(bytes16(""), bytes16("Monster")));
 bytes32 constant MonsterTableId = _tableId;
 
-struct MonsterData {
-  MonsterType monster;
-  uint32 health;
-  uint32 damage;
-}
-
 library Monster {
   /** Get the table's schema */
   function getSchema() internal pure returns (Schema) {
@@ -181,7 +175,7 @@ library Monster {
   }
 
   /** Get the full data */
-  function get(bytes32 key) internal view returns (MonsterData memory _table) {
+  function get(bytes32 key) internal view returns (MonsterType monster, uint32 health, uint32 damage) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
@@ -190,7 +184,7 @@ library Monster {
   }
 
   /** Get the full data (using the specified store) */
-  function get(IStore _store, bytes32 key) internal view returns (MonsterData memory _table) {
+  function get(IStore _store, bytes32 key) internal view returns (MonsterType monster, uint32 health, uint32 damage) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
@@ -218,23 +212,13 @@ library Monster {
     _store.setRecord(_tableId, _keyTuple, _data);
   }
 
-  /** Set the full data using the data struct */
-  function set(bytes32 key, MonsterData memory _table) internal {
-    set(key, _table.monster, _table.health, _table.damage);
-  }
-
-  /** Set the full data using the data struct (using the specified store) */
-  function set(IStore _store, bytes32 key, MonsterData memory _table) internal {
-    set(_store, key, _table.monster, _table.health, _table.damage);
-  }
-
   /** Decode the tightly packed blob using this table's schema */
-  function decode(bytes memory _blob) internal pure returns (MonsterData memory _table) {
-    _table.monster = MonsterType(uint8(Bytes.slice1(_blob, 0)));
+  function decode(bytes memory _blob) internal pure returns (MonsterType monster, uint32 health, uint32 damage) {
+    monster = MonsterType(uint8(Bytes.slice1(_blob, 0)));
 
-    _table.health = (uint32(Bytes.slice4(_blob, 1)));
+    health = (uint32(Bytes.slice4(_blob, 1)));
 
-    _table.damage = (uint32(Bytes.slice4(_blob, 5)));
+    damage = (uint32(Bytes.slice4(_blob, 5)));
   }
 
   /** Tightly pack full data using this table's schema */

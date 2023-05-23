@@ -26,5 +26,7 @@ interface IStatsSystem {
 
   function getDamage() external view returns (uint32);
 
+  function getDamage(bytes32 player) external view returns (uint32);
+
   function getHealth() external view returns (uint32);
 }

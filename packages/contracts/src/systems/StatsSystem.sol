@@ -108,6 +108,15 @@ contract StatsSystem is System {
         return Stats.getDamage(player) + multiplier;
     }
 
+    function getDamage(bytes32 player) public view returns (uint32) {
+        uint32 multiplier = 0;
+        if (IWorld(_world()).getAxe(player) > 0) {
+            multiplier = 1;
+        }
+
+        return Stats.getDamage(player) + multiplier;
+    }
+
     function getHealth() public view returns (uint32) {
         bytes32 player = addressToEntityKey(_msgSender());
 

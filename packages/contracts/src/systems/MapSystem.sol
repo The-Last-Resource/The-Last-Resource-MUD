@@ -22,7 +22,7 @@ import {
     Stats,
     Died
 } from "../codegen/Tables.sol";
-import {ResourceType, TerrainType, ItemType} from "../codegen/Types.sol";
+import {ResourceType, TerrainType, ItemType, Direction} from "../codegen/Types.sol";
 import {addressToEntityKey} from "../addressToEntityKey.sol";
 import {positionToEntityKey} from "../positionToEntityKey.sol";
 import {IWorld} from "../codegen/world/IWorld.sol";
@@ -69,7 +69,7 @@ contract MapSystem is System {
         Movable.set(player, true);
     }
 
-    function move(uint32 x, uint32 y) public {
+    function moveTo(uint32 x, uint32 y) public {
         bytes32 player = addressToEntityKey(_msgSender());
         require(Movable.get(player), "cannot move");
 
@@ -121,6 +121,25 @@ contract MapSystem is System {
 
         if (Stats.getHealth(player) == 0) Died.emitEphemeral(player, true);
         Position.set(player, x, y);
+    }
+
+    function move(Direction direction) public {
+        require(direction != Direction.Unknown, "Unknown direction");
+
+        bytes32 player = addressToEntityKey(_msgSender());
+        (uint32 x, uint32 y) = Position.get(player);
+
+        if (direction == Direction.Up) {
+            y -= 1;
+        } else if (direction == Direction.Down) {
+            y += 1;
+        } else if (direction == Direction.Left) {
+            x -= 1;
+        } else if (direction == Direction.Right) {
+            x += 1;
+        }
+
+        moveTo(x, y);
     }
 
     function distance(uint32 fromX, uint32 fromY, uint32 toX, uint32 toY) internal pure returns (uint32) {

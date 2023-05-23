@@ -2,10 +2,11 @@ import { mudConfig, resolveTableId } from "@latticexyz/world/register";
 
 export default mudConfig({
   enums: {
-    ResourceType: ["None", "Wood", "Stone", "Water"],
+    ResourceType: ["None", "Wood", "Stone", "Water", "Food"],
     ItemType: ["Axe", "Pickaxe", "Bucket"],
-    TerrainType: ["None", "Tree", "Rock", "Sea", "Wood", "Stone", "Water", "Grass"],
+    TerrainType: ["None", "Tree", "Rock", "Sea", "Wood", "Stone", "Water", "Food"],
     MonsterType: ["None", "Deer", "Chicken"],
+    Direction: ["Unknown", "Up", "Down", "Left", "Right"],
   },
   tables: {
     Collected: {
@@ -59,22 +60,13 @@ export default mudConfig({
       },
     },
     Monster: {
+      dataStruct: false,
       schema: {
         monster: "MonsterType",
         health: "uint32",
         damage: "uint32",
       },
     },
-    Encounter: {
-      dataStruct: false,
-      keySchema: {
-        player: "bytes32",
-      },
-      schema: {
-        monster: "bytes32",
-      },
-    },
-    EncounterTrigger: "bool",
     Resource: "ResourceType",
     Item: "ItemType",
     MapConfig: {
