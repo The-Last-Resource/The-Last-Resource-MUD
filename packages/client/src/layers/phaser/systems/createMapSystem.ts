@@ -9,6 +9,7 @@ import { TerrainType } from "../../../mud/types";
 import { type PhaserLayer } from "../createPhaserLayer";
 import { hexToArray } from "@latticexyz/utils";
 import { TILE_WIDTH, TILE_HEIGHT } from "../constants";
+import { convertToMatrix } from "../utils";
 
 export async function createMapSystem(layer: PhaserLayer) {
   const {
@@ -69,8 +70,6 @@ export async function createMapSystem(layer: PhaserLayer) {
             putTileAt(coord, Tileset.Stone, "Foreground");
           else if (map[y][x] === 3)
             putTileAt(coord, Tileset.WaterMid, "Foreground");
-          else if (map[y][x] === 4)
-            putTileAt(coord, Tileset.Mushrooms, "Foreground");
           else if (map[y][x] === 5)
             putTileAt(coord, Tileset.Sign, "Foreground");
           else if (map[y][x] === 10)

@@ -29,7 +29,6 @@ enum TerrainType {
 
 enum MonsterType {
   None,
-  Deer,
   Chicken
 }
 

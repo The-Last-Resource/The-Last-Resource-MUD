@@ -4,8 +4,8 @@ pragma solidity >=0.8.0;
 import {Script} from "forge-std/Script.sol";
 import {console} from "forge-std/console.sol";
 import {IWorld} from "../src/codegen/world/IWorld.sol";
-import {MapConfig, Obstruction, Position, Mineable} from "../src/codegen/Tables.sol";
-import {TerrainType} from "../src/codegen/Types.sol";
+import {MapConfig, Obstruction, Position, Mineable, Monster} from "../src/codegen/Tables.sol";
+import {TerrainType, MonsterType} from "../src/codegen/Types.sol";
 import {positionToEntityKey} from "../src/positionToEntityKey.sol";
 
 contract PostDeploy is Script {
@@ -1322,8 +1322,20 @@ contract PostDeploy is Script {
         for (uint32 y = 0; y < height; y++) {
             for (uint32 x = 0; x < width; x++) {
                 uint8 terrainType = map[y][x];
+
                 if (terrainType == 0) continue;
 
+                // Handle monsters
+                if (terrainType == 4) {
+                    // Creates chicken
+                    terrain[(y * width) + x] = bytes1(terrainType);
+                    bytes32 monsterEntity = positionToEntityKey(x, y);
+                    Position.set(world, monsterEntity, x, y);
+                    Monster.set(world, monsterEntity, MonsterType.Chicken, 2, 1);
+                    continue;
+                }
+
+                // Handle obstructable object
                 terrain[(y * width) + x] = bytes1(terrainType);
 
                 bytes32 entity = positionToEntityKey(x, y);
