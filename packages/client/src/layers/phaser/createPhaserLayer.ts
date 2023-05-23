@@ -1,6 +1,5 @@
 import { createPhaserEngine } from "@latticexyz/phaserx";
-import { useComponentValue } from "@latticexyz/react";
-import { namespaceWorld, getComponentValueStrict } from "@latticexyz/recs";
+import { namespaceWorld, getComponentValue } from "@latticexyz/recs";
 import { NetworkLayer } from "../network/createNetworkLayer";
 import { registerSystems } from "./systems";
 import { TILE_HEIGHT, TILE_WIDTH } from "./constants";
@@ -21,22 +20,30 @@ export const createPhaserLayer = async (
   } = await createPhaserEngine(phaserConfig);
   world.registerDisposer(disposePhaser);
 
-  const mapConfig = getComponentValueStrict(
+  await new Promise((r) => setTimeout(r, 5000));
+
+  const mapConfig = getComponentValue(
     networkLayer.components.MapConfig,
     networkLayer.singletonEntity
   );
 
   const { camera } = scenes.Main;
 
-  const width = mapConfig.width;
-  const height = mapConfig.height;
+  if (mapConfig) {
+    const width = mapConfig.width;
+    const height = mapConfig.height;
 
-  console.log(0, 0, width * TILE_WIDTH, height * TILE_HEIGHT, "help");
-  camera.phaserCamera.setBounds(0, 0, width * TILE_WIDTH, height * TILE_HEIGHT);
-  camera.phaserCamera.centerOn(
-    (width / 2) * TILE_WIDTH,
-    (height / 2) * TILE_HEIGHT
-  );
+    camera.phaserCamera.setBounds(
+      0,
+      0,
+      width * TILE_WIDTH,
+      height * TILE_HEIGHT
+    );
+    camera.phaserCamera.centerOn(
+      (width / 2) * TILE_WIDTH,
+      (height / 2) * TILE_HEIGHT
+    );
+  }
 
   const components = {};
 

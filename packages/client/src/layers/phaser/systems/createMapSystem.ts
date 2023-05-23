@@ -15,9 +15,9 @@ export function createMapSystem(layer: PhaserLayer) {
     mapConfig,
   } = layer;
 
-  const { width, height, terrain } = mapConfig;
+  if (!mapConfig) return;
 
-  console.log({ terrain });
+  const { width, height, terrain } = mapConfig;
 
   const convertToMatrix = (
     arr: number[],
@@ -42,8 +42,6 @@ export function createMapSystem(layer: PhaserLayer) {
           width
         )
       : undefined;
-
-  console.log({ map });
 
   if (map) {
     for (let y = 0; y < height; y++) {

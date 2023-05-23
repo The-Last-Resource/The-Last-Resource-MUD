@@ -16,12 +16,6 @@ contract PostDeploy is Script {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
 
-        TerrainType O = TerrainType.None;
-        TerrainType T = TerrainType.Tree;
-        TerrainType B = TerrainType.Rock;
-        TerrainType S = TerrainType.Sea;
-        TerrainType F = TerrainType.Food;
-
         uint8[46][27] memory map = [
             [
                 0,
