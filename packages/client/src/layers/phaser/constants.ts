@@ -7,10 +7,10 @@ export enum Maps {
 }
 
 export enum Animations {
-  SwordsmanIdle = "SwordsmanIdle",
+  Golem = "Golem",
 }
 export enum Sprites {
-  Soldier,
+  Golem,
 }
 
 export enum Assets {

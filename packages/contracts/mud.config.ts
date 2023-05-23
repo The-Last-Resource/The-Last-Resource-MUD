@@ -48,6 +48,16 @@ export default mudConfig({
         result: "bool",
       },
     },
+    Died: {
+      ephemeral: true,
+      dataStruct: false,
+      keySchema: {
+        player: "bytes32",
+      },
+      schema: {
+        result: "bool",
+      },
+    },
     Monster: {
       schema: {
         monster: "MonsterType",

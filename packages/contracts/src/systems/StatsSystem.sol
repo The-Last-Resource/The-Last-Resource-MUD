@@ -21,6 +21,7 @@ import {
 import {ResourceType, TerrainType, ItemType} from "../codegen/Types.sol";
 import {addressToEntityKey} from "../addressToEntityKey.sol";
 import {positionToEntityKey} from "../positionToEntityKey.sol";
+import {IWorld} from "../codegen/world/IWorld.sol";
 import {getKeysWithValue} from "@latticexyz/world/src/modules/keyswithvalue/getKeysWithValue.sol";
 import {getKeysInTable} from "@latticexyz/world/src/modules/keysintable/getKeysInTable.sol";
 import {query, QueryFragment, QueryType} from "@latticexyz/world/src/modules/keysintable/query.sol";
@@ -62,6 +63,22 @@ contract StatsSystem is System {
         return 0;
     }
 
+    function timeTillHungry(bytes32 player) public view returns (uint256) {
+        uint256 hungerTime = getHungerTimestamp(player);
+        if (hungerTime > block.number) {
+            return hungerTime - block.number;
+        }
+        return 0;
+    }
+
+    function timeTillThirsty(bytes32 player) public view returns (uint256) {
+        uint256 thirstTime = getThirstTimestamp(player);
+        if (thirstTime > block.number) {
+            return thirstTime - block.number;
+        }
+        return 0;
+    }
+
     function hungrySince(bytes32 player) public view returns (uint256) {
         uint256 hungerSince = getHungerTimestamp(player);
 
@@ -83,7 +100,12 @@ contract StatsSystem is System {
     function getDamage() public view returns (uint32) {
         bytes32 player = addressToEntityKey(_msgSender());
 
-        return Stats.getDamage(player);
+        uint32 multiplier = 0;
+        if (IWorld(_world()).getAxe(player) > 0) {
+            multiplier = 1;
+        }
+
+        return Stats.getDamage(player) + multiplier;
     }
 
     function getHealth() public view returns (uint32) {

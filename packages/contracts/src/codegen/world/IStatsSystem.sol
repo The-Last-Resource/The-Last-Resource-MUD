@@ -16,6 +16,10 @@ interface IStatsSystem {
 
   function timeTillThirsty() external view returns (uint256);
 
+  function timeTillHungry(bytes32 player) external view returns (uint256);
+
+  function timeTillThirsty(bytes32 player) external view returns (uint256);
+
   function hungrySince(bytes32 player) external view returns (uint256);
 
   function thirstySince(bytes32 player) external view returns (uint256);
